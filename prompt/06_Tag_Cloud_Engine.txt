@@ -1,0 +1,15 @@
+Title: NLP-Based Tag Cloud from Comments
+
+Objective:
+Extract meaningful tags from user comments to build dynamic tag clouds per business.
+
+Instructions:
+- Use NLP to extract keywords from review comments
+- Normalize synonyms and remove stopwords
+- Store tags with weight (frequency or relevance)
+- Display clickable tag cloud on business profile
+
+Validation:
+- Tags must update dynamically
+- Tag cloud must reflect actual user sentiment
+- NLP logic must be documented and testable

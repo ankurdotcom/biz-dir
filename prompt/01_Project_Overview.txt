@@ -1,0 +1,24 @@
+Title: Community-Driven Local Business Directory Platform
+
+Objective:
+Develop a scalable, locality-aware business directory platform for Indian SMBs. The platform will be community-driven, community-moderated, and monetized via sponsored listings and ads. It must be SEO-optimized and future-proofed for AI-based search engines.
+
+Core Features:
+- Town-based business listings under a common domain (`example.in/town-name`)
+- Contributor and moderator roles with reputation-based access
+- Fractional 5-star review system with comment-based tag cloud
+- Semantic search and filtering by tags, ratings, and town
+- Sponsored listings and ad slots for monetization
+- Structured data markup for AI discoverability
+
+Tech Constraints:
+- Hosting budget: ₹1000–₹2000/year (shared hosting)
+- CMS: WordPress or lightweight PHP stack preferred
+- Modular architecture with reversible components
+- All modules must be independently testable and deployable
+
+Acceptance Criteria:
+- Each module must expose REST endpoints or plugin hooks
+- Must support mobile-first responsive design
+- All user-generated content must be sanitized and rate-limited
+- SEO and structured data must validate via Google Rich Results Test

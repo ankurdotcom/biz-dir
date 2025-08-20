@@ -1,0 +1,17 @@
+Title: Sponsored Listings and Ad Management
+
+Objective:
+Implement monetization via sponsored listings, ad slots, and premium profiles.
+
+Instructions:
+- Businesses can pay to:
+  - Appear at top of town/category pages
+  - Get “Sponsored” badge
+  - Unlock premium profile features (images, videos, backlinks)
+- Include ad slots (sidebar, footer)
+- Admin panel to manage payments and sponsorships
+
+Validation:
+- Sponsored listings must override default sort
+- Ads must display correctly
+- Premium features must be gated by payment status

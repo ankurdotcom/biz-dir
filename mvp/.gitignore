@@ -1,0 +1,46 @@
+# WordPress core files
+wp-admin/
+wp-includes/
+wp-*.php
+index.php
+xmlrpc.php
+license.txt
+readme.html
+
+# Configuration
+wp-config.php
+.env
+config/.env
+
+# Composer
+/vendor/
+composer.lock
+
+# Node.js
+node_modules/
+package-lock.json
+
+# Development files
+.DS_Store
+.idea/
+.vscode/
+*.log
+/logs/
+
+# Uploads and cache
+wp-content/uploads/
+wp-content/cache/
+wp-content/upgrade/
+wp-content/backup-db/
+wp-content/backups/
+wp-content/blogs.dir/
+wp-content/upgrade/
+wp-content/debug.log
+
+# Plugins (except our custom plugin)
+wp-content/plugins/*
+!wp-content/plugins/biz-dir-core/
+
+# Themes (except our custom theme)
+wp-content/themes/*
+!wp-content/themes/biz-dir/

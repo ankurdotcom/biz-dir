@@ -1,0 +1,20 @@
+Title: Mobile-First UX and UI Design
+
+Objective:
+Design clean, responsive interface for all modules.
+
+Instructions:
+- Use mobile-first layout
+- Prioritize accessibility (WCAG 2.1)
+- Include:
+  - Town navigation
+  - Business cards
+  - Review stars
+  - Tag cloud
+  - Search bar
+- Use consistent color scheme and typography
+
+Validation:
+- Pages must load fast on mobile
+- Navigation must be intuitive
+- All interactive elements must be touch-friendly

@@ -1,0 +1,18 @@
+Title: User Authentication and Role Management
+
+Objective:
+Implement secure user authentication and role-based access control for:
+- Contributors (can add/edit listings and reviews)
+- Moderators (can approve/reject content)
+- Admins (full access)
+
+Instructions:
+- Build login/signup flow with email verification
+- Use JWT or session-based auth
+- Define middleware or guards for role-based permissions
+- Include password reset and basic profile management
+
+Validation:
+- Users must be restricted by role
+- Contributor actions must be logged
+- Moderator dashboard must show pending approvals

@@ -1,0 +1,15 @@
+Title: Business Listing CRUD and Town Mapping
+
+Objective:
+Enable contributors to create, read, update, and delete business listings, mapped to towns.
+
+Instructions:
+- Build listing form with fields: name, category, contact, description, town
+- Auto-generate SEO-friendly URLs: `/town-name/business-name`
+- Include sponsored flag and logic for priority display
+- Listings must be searchable and paginated
+
+Validation:
+- Listings must be editable only by creator or moderator
+- Sponsored listings must appear at top of town pages
+- Town pages must show correct listings

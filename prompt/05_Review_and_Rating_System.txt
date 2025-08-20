@@ -1,0 +1,16 @@
+Title: Fractional 5-Star Review System
+
+Objective:
+Allow users to rate businesses with fractional stars and optional comments.
+
+Instructions:
+- Rating input: 0.5 to 5.0 scale
+- Store average rating per business
+- Display stars visually (half/full)
+- Allow one review per user per business
+- Include schema.org markup for reviews
+
+Validation:
+- Ratings must average correctly
+- Reviews must be editable by author
+- Rich snippets must validate via Google

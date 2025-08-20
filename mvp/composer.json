@@ -1,0 +1,31 @@
+{
+    "name": "biz-dir/community-directory",
+    "description": "A community-driven business directory platform",
+    "type": "project",
+    "require": {
+        "php": ">=8.0",
+        "composer/installers": "^2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0",
+        "wp-coding-standards/wpcs": "^2.3",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.7",
+        "yoast/phpunit-polyfills": "^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "BizDir\\": "wp-content/plugins/biz-dir-core/includes/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "phpcs": "phpcs",
+        "phpcbf": "phpcbf"
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}

@@ -1,0 +1,19 @@
+Title: User Acceptance Testing Checklist
+
+Objective:
+Define final validation steps before launch.
+
+Checklist:
+- ✅ All modules load without errors
+- ✅ Listings are searchable and filterable
+- ✅ Reviews and ratings display correctly
+- ✅ Tag cloud updates dynamically
+- ✅ Moderation queue functions as expected
+- ✅ Sponsored listings appear correctly
+- ✅ Structured data passes Google validation
+- ✅ UI is responsive and accessible
+- ✅ No security vulnerabilities (e.g., XSS, SQLi)
+- ✅ Admin panel controls all monetization features
+
+Instructions:
+Run this checklist manually or via AI testing tools before final approval.

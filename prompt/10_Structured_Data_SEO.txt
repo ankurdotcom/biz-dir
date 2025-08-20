@@ -1,0 +1,18 @@
+Title: Structured Data for SEO and AI Discovery
+
+Objective:
+Add schema.org markup to listings, reviews, and tags for rich search results.
+
+Instructions:
+- Use JSON-LD format
+- Include:
+  - `LocalBusiness`
+  - `Review`
+  - `Place`
+  - `AggregateRating`
+- Validate using Google Rich Results Test
+
+Validation:
+- All markup must pass validation
+- Listings must show enhanced results in search
+- Tags and reviews must be semantically linked

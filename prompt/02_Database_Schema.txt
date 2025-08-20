@@ -1,0 +1,23 @@
+Title: Core Database Schema for Community Business Directory
+
+Objective:
+Design a scalable, normalized database schema to support:
+- Town-based business listings
+- User roles (contributor, moderator, admin)
+- Fractional reviews with comments
+- NLP-generated tag cloud
+- Sponsored listings and monetization
+
+Instructions:
+Create SQL schema or ORM models for the following entities:
+1. `User` – ID, name, email, role, reputation score
+2. `Town` – ID, name, slug, region
+3. `Business` – ID, name, town_id, category, contact info, description, sponsored_flag
+4. `Review` – ID, user_id, business_id, rating (float), comment, timestamp
+5. `Tag` – ID, business_id, tag_text, weight
+6. `ModerationQueue` – ID, content_type, content_id, status, assigned_moderator_id
+
+Validation:
+- All foreign keys must be defined
+- Use indexing for search-critical fields (e.g., town_id, rating)
+- Schema must support future expansion (e.g., premium profiles)

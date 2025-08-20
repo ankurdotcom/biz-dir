@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    bootstrap="tests/bootstrap.php"
+    colors="true"
+    convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertWarningsToExceptions="true"
+    stopOnFailure="false"
+>
+    <testsuites>
+        <testsuite name="BizDir Test Suite">
+            <directory suffix="Test.php">./tests</directory>
+        </testsuite>
+    </testsuites>
+    <coverage>
+        <include>
+            <directory suffix=".php">wp-content/plugins/biz-dir-core/includes</directory>
+        </include>
+    </coverage>
+    <php>
+        <env name="WP_TESTS_DIR" value="/tmp/wordpress-tests-lib"/>
+        <env name="WP_CORE_DIR" value="/tmp/wordpress"/>
+    </php>
+</phpunit>

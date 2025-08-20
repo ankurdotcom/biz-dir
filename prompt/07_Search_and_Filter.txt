@@ -1,0 +1,18 @@
+Title: Semantic Search and Filter System
+
+Objective:
+Enable users to search and filter listings by town, category, rating, and tags.
+
+Instructions:
+- Build search bar with autocomplete
+- Allow filtering by:
+  - Town
+  - Category
+  - Rating range
+  - Tags
+- Use fuzzy matching or semantic search if possible
+
+Validation:
+- Search results must be relevant
+- Filters must work independently and in combination
+- Search must be fast and paginated

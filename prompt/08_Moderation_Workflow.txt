@@ -1,0 +1,18 @@
+Title: Community Moderation System
+
+Objective:
+Allow moderators to approve, reject, or escalate user-generated content.
+
+Instructions:
+- Build moderation dashboard
+- Queue includes listings, reviews, tags
+- Moderators can:
+  - Approve
+  - Reject with reason
+  - Escalate to admin
+- Include notification system for contributors
+
+Validation:
+- Only moderators can access queue
+- Actions must be logged
+- Rejected content must be hidden from public
