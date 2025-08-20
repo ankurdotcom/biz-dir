@@ -20,45 +20,82 @@ class ModerationHandlerTest extends Base_Test_Case {
 
     public function setUp(): void {
         parent::setUp();
-
-        $permission_handler = new \BizDir\Core\User\Permission_Handler();
-        $this->moderation_handler = new Moderation_Handler($permission_handler);
-        $this->moderation_handler->init();
-
-        // Create test moderator
-        $this->test_moderator_id = $this->factory->user->create([
-            'role' => User_Manager::ROLE_MODERATOR
-        ]);
-        
-        // Create test user
-        $this->test_user_id = $this->factory->user->create([
-            'role' => User_Manager::ROLE_CONTRIBUTOR
-        ]);
-
-        // Add test town
         global $wpdb;
+        
+        try {
+            // Disable foreign key checks during setup
+            $wpdb->query('SET FOREIGN_KEY_CHECKS=0');
+            
+            // Initialize handlers
+            $permission_handler = new \BizDir\Core\User\Permission_Handler();
+            $this->moderation_handler = new Moderation_Handler($permission_handler);
+            $this->moderation_handler->init();
+
+            // Create users
+            $this->test_moderator_id = $this->factory->user->create(['role' => User_Manager::ROLE_MODERATOR]);
+            $this->test_user_id = $this->factory->user->create(['role' => User_Manager::ROLE_CONTRIBUTOR]);
+
+            // Create test data
+            $test_town_id = $this->create_test_town();
+            $this->test_business_id = $this->create_test_business($test_town_id);
+            $this->test_review_id = $this->create_test_review();
+
+            // Re-enable foreign key checks
+            $wpdb->query('SET FOREIGN_KEY_CHECKS=1');
+            
+        } catch (\Exception $e) {
+            $wpdb->query('SET FOREIGN_KEY_CHECKS=1');
+            throw $e;
+        }
+    }
+
+    private function create_test_town() {
+        global $wpdb;
+        
         $wpdb->insert(
             $wpdb->prefix . 'biz_towns',
             [
                 'name' => 'Test Town',
-                'slug' => 'test-town',
+                'slug' => 'test-town-' . uniqid(),
                 'region' => 'Test Region'
-            ]
+            ],
+            ['%s', '%s', '%s']
         );
-        $test_town_id = $wpdb->insert_id;
+        
+        if ($wpdb->last_error) {
+            throw new \Exception("Failed to create test town: {$wpdb->last_error}");
+        }
+        
+        return $wpdb->insert_id;
+    }
 
-        // Create test business
-        $this->test_business_id = wp_insert_post([
-            'post_type' => 'business_listing',
-            'post_title' => 'Test Business',
-            'post_author' => $this->test_user_id,
-            'post_status' => 'publish'
-        ]);
-
-        update_post_meta($this->test_business_id, '_town_id', $test_town_id);
-
-        // Create test review
+    private function create_test_business($town_id) {
         global $wpdb;
+        
+        $wpdb->insert(
+            $wpdb->prefix . 'biz_businesses',
+            [
+                'name' => 'Test Business',
+                'slug' => 'test-business-' . uniqid(),
+                'town_id' => $town_id,
+                'owner_id' => $this->test_user_id,
+                'status' => 'active',
+                'created_at' => current_time('mysql'),
+                'updated_at' => current_time('mysql')
+            ],
+            ['%s', '%s', '%d', '%d', '%s', '%s', '%s']
+        );
+        
+        if ($wpdb->last_error) {
+            throw new \Exception("Failed to create test business: {$wpdb->last_error}");
+        }
+        
+        return $wpdb->insert_id;
+    }
+
+    private function create_test_review() {
+        global $wpdb;
+        
         $wpdb->insert(
             $wpdb->prefix . 'biz_reviews',
             [
@@ -66,19 +103,52 @@ class ModerationHandlerTest extends Base_Test_Case {
                 'user_id' => $this->test_user_id,
                 'rating' => 4.0,
                 'comment' => 'Test review comment',
-                'status' => 'pending'
-            ]
+                'status' => 'pending',
+                'created_at' => current_time('mysql'),
+                'updated_at' => current_time('mysql')
+            ],
+            ['%d', '%d', '%f', '%s', '%s', '%s', '%s']
         );
-        $this->test_review_id = $wpdb->insert_id;
+        
+        if ($wpdb->last_error) {
+            throw new \Exception("Failed to create test review: {$wpdb->last_error}");
+        }
+        
+        return $wpdb->insert_id;
     }
 
     public function tearDown(): void {
-        wp_delete_post($this->test_business_id, true);
-        wp_delete_user($this->test_moderator_id);
-        wp_delete_user($this->test_user_id);
-        
         global $wpdb;
-        $wpdb->delete($wpdb->prefix . 'biz_reviews', ['id' => $this->test_review_id]);
+        
+        try {
+            // Disable foreign key checks for cleanup
+            $wpdb->query('SET FOREIGN_KEY_CHECKS=0');
+            
+            // Clean up test data in reverse order
+            if ($this->test_review_id) {
+                $wpdb->delete($wpdb->prefix . 'biz_reviews', ['id' => $this->test_review_id]);
+            }
+            
+            if ($this->test_business_id) {
+                $wpdb->delete($wpdb->prefix . 'biz_businesses', ['id' => $this->test_business_id]);
+            }
+            
+            if ($this->test_moderator_id) {
+                wp_delete_user($this->test_moderator_id);
+            }
+            
+            if ($this->test_user_id) {
+                wp_delete_user($this->test_user_id);
+            }
+            
+            // Re-enable foreign key checks
+            $wpdb->query('SET FOREIGN_KEY_CHECKS=1');
+            
+        } catch (\Exception $e) {
+            $wpdb->query('SET FOREIGN_KEY_CHECKS=1');
+            error_log("[BizDir Tests] Cleanup failed: {$e->getMessage()}");
+            throw $e;
+        }
         
         parent::tearDown();
     }

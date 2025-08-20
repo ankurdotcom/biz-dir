@@ -313,6 +313,11 @@ class Moderation_Handler {
             return false;
         }
 
+        if (!in_array($action, ['approve', 'reject', 'escalate'], true)) {
+            error_log("[BizDir Moderation] Invalid action: $action");
+            return false;
+        }
+
         global $wpdb;
         error_log("[BizDir Moderation] Moderating item | queue_id: $queue_id, action: $action");
 
@@ -422,7 +427,20 @@ class Moderation_Handler {
     private function update_review_status($id, $action) {
         global $wpdb;
         
-        $status = $action === 'approve' ? 'published' : 'rejected';
+        switch ($action) {
+            case 'approve':
+                $status = 'published';
+                break;
+            case 'reject':
+                $status = 'rejected';
+                break;
+            case 'escalate':
+                $status = 'pending';
+                break;
+            default:
+                error_log("[BizDir Moderation] Invalid action for review status: $action");
+                return false;
+        }
         
         $result = $wpdb->update(
             $wpdb->prefix . 'biz_reviews',

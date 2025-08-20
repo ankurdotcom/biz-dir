@@ -27,16 +27,35 @@ class Base_Test_Case extends WP_UnitTestCase {
         error_log("[DB INFO] Tables found: " . count($tables));
         error_log("[DB INFO] Table list: " . implode(', ', $tables));
         
-        // Re-initialize schema if needed
-        $reputation_table = $wpdb->prefix . 'biz_user_reputation';
-        if (!in_array($reputation_table, $tables)) {
-            error_log("[SCHEMA] Reputation table '$reputation_table' not found");
-            error_log("[SCHEMA] Attempting to recreate schema...");
+        // Re-initialize schema before each test
+        error_log("[SCHEMA] Recreating schema tables...");
+        
+        // Disable foreign key checks temporarily
+        $wpdb->query('SET autocommit=0');
+        $wpdb->query('SET FOREIGN_KEY_CHECKS=0');
+        $wpdb->query('START TRANSACTION');
+        
+        try {
+            // Drop existing tables in reverse order of dependencies
+            $biz_tables = [
+                'biz_moderation_queue',
+                'biz_reviews',
+                'biz_tags',
+                'biz_user_reputation',
+                'biz_businesses',
+                'biz_towns'
+            ];
             
-            // Load plugin file for constants
-            $plugin_file = dirname(dirname(__FILE__)) . '/wp-content/plugins/biz-dir-core/biz-dir-core.php';
-            error_log("[SCHEMA] Loading plugin file: $plugin_file");
-            require_once $plugin_file;
+            foreach ($biz_tables as $table) {
+                $full_table = $wpdb->prefix . $table;
+                if (in_array($full_table, $tables)) {
+                    error_log("[SCHEMA] Dropping table: $full_table");
+                    $wpdb->query("DROP TABLE IF EXISTS `$full_table`");
+                }
+            }
+            
+            $wpdb->query('COMMIT');
+            $wpdb->query('START TRANSACTION');
             
             // Load and execute schema
             $schema_file = dirname(dirname(__FILE__)) . '/config/schema.sql';
@@ -47,13 +66,46 @@ class Base_Test_Case extends WP_UnitTestCase {
             }
             
             $schema_sql = str_replace('{prefix}', $wpdb->prefix, file_get_contents($schema_file));
-            $result = $wpdb->query($schema_sql);
             
-            if ($result === false) {
-                error_log("[SCHEMA ERROR] Failed to execute schema: " . $wpdb->last_error);
-                throw new \RuntimeException("Schema creation failed: " . $wpdb->last_error);
+            // Split schema into individual statements
+            $statements = array_filter(
+                array_map(
+                    'trim',
+                    preg_split("/;\s*[\r\n]+/", $schema_sql)
+                )
+            );
+
+            // Execute each statement separately
+            foreach ($statements as $statement) {
+                if (empty($statement) || strpos($statement, '--') === 0) {
+                    continue; // Skip empty lines and comments
+                }
+                
+                $result = $wpdb->query($statement);
+                if ($result === false) {
+                    error_log("[SCHEMA ERROR] Failed to execute statement: " . $statement);
+                    error_log("[SCHEMA ERROR] Error: " . $wpdb->last_error);
+                    throw new \RuntimeException("Schema creation failed: " . $wpdb->last_error);
+                }
             }
+            
+            // Add a test town for business setup
+            $town_id = $wpdb->insert($wpdb->prefix . 'biz_towns', [
+                'name' => 'Test Town',
+                'slug' => 'test-town-' . uniqid(),
+                'region' => 'Test Region'
+            ]);
+            
+            $wpdb->query('COMMIT');
+            $wpdb->query('START TRANSACTION');
+            
             error_log("[SCHEMA] Schema created successfully");
+        } catch (\Exception $e) {
+            $wpdb->query('ROLLBACK');
+            throw $e;
+        } finally {
+            // Re-enable foreign key checks but stay in transaction
+            $wpdb->query('SET FOREIGN_KEY_CHECKS=1');
         }
     }
 

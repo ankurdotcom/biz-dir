@@ -138,6 +138,65 @@ function _biz_dir_install_schema() {
         'md5' => md5($schema_sql)
     ]);
 
+    // Pre-cleanup: Drop existing tables in correct order to prevent foreign key constraint errors
+    $tables_to_drop = array(
+        'biz_user_reputation',
+        'biz_moderation_queue',
+        'biz_reviews',
+        'biz_tags',
+        'biz_businesses',
+        'biz_towns'
+    );
+
+    foreach ($tables_to_drop as $table) {
+        $wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}{$table}");
+        _biz_dir_debug("Dropped table if exists: {$wpdb->prefix}{$table}");
+    }
+
+    // Create tables in proper order
+    $create_tables = array(
+        'biz_towns',
+        'biz_businesses',
+        'biz_reviews',
+        'biz_tags',
+        'biz_moderation_queue',
+        'biz_user_reputation'
+    );
+
+    foreach ($create_tables as $table) {
+        // Extract CREATE TABLE statement for this table
+        $pattern = "/CREATE TABLE IF NOT EXISTS `{prefix}{$table}`[^;]+;/s";
+        if (preg_match($pattern, $schema_sql, $matches)) {
+            $create_sql = $matches[0];
+            $create_sql = str_replace('{prefix}', $wpdb->prefix, $create_sql);
+            
+            _biz_dir_debug("Creating table: {$wpdb->prefix}{$table}", 'INFO', [
+                'sql' => $create_sql
+            ]);
+
+            $result = $wpdb->query($create_sql);
+            
+            if ($result === false) {
+                _biz_dir_debug("Error creating table {$wpdb->prefix}{$table}", 'ERROR', [
+                    'error' => $wpdb->last_error,
+                    'sql' => $create_sql
+                ]);
+                throw new RuntimeException("Failed to create table {$wpdb->prefix}{$table}: " . $wpdb->last_error);
+            }
+
+            // Verify table structure
+            $columns = $wpdb->get_results("SHOW COLUMNS FROM {$wpdb->prefix}{$table}");
+            $column_names = array_map(function($col) { return $col->Field; }, $columns);
+            
+            _biz_dir_debug("Created table {$wpdb->prefix}{$table}", 'SUCCESS', [
+                'columns' => $column_names
+            ]);
+        } else {
+            _biz_dir_debug("Could not find CREATE TABLE statement for {$table}", 'ERROR');
+            throw new RuntimeException("Could not find CREATE TABLE statement for {$table}");
+        }
+    }
+
     // Replace {prefix} with actual test prefix
     _biz_dir_debug('Using database prefix: ' . $wpdb->prefix);
     $schema_sql = str_replace('{prefix}', $wpdb->prefix, $schema_sql);
@@ -160,8 +219,45 @@ function _biz_dir_install_schema() {
                 'statement_length' => strlen($statement)
             ]);
             
-            $result = $wpdb->query($statement);
-            $execution_time = microtime(true) - $start_time;
+            // Get table name from statement
+            if (preg_match('/CREATE TABLE IF NOT EXISTS \`([^\`]+)\`/', $statement, $matches)) {
+                $table_name = $matches[1];
+                _biz_dir_debug("Creating/updating table: $table_name", 'INFO', [
+                    'statement' => $statement
+                ]);
+                
+                // Drop table first to ensure clean creation
+                $wpdb->query("DROP TABLE IF EXISTS `$table_name`");
+                
+                $result = $wpdb->query($statement);
+                $execution_time = microtime(true) - $start_time;
+                
+                if ($result === false) {
+                    _biz_dir_debug("Failed to create table: $table_name", 'ERROR', [
+                        'error' => $wpdb->last_error,
+                        'statement' => $statement
+                    ]);
+                } else {
+                    // Verify table structure
+                    $show_create = $wpdb->get_row("SHOW CREATE TABLE `$table_name`", ARRAY_A);
+                    $columns = $wpdb->get_col("SHOW COLUMNS FROM `$table_name`");
+                    
+                    _biz_dir_debug("Table $table_name created successfully", 'SUCCESS', [
+                        'create_statement' => $show_create['Create Table'],
+                        'columns' => $columns
+                    ]);
+                }
+            } else {
+                $result = $wpdb->query($statement);
+                $execution_time = microtime(true) - $start_time;
+                
+                if ($result === false) {
+                    _biz_dir_debug('Failed to execute SQL statement', 'ERROR', [
+                        'error' => $wpdb->last_error,
+                        'statement' => $statement
+                    ]);
+                }
+            }
             
             if ($result === false) {
                 _biz_dir_debug('SQL execution failed', 'ERROR', [
