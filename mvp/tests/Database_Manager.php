@@ -1,38 +1,149 @@
 <?php
-/**
- * Base Test Case
- *
- * @package BizDir\Tests
- */
 
 namespace BizDir\Tests;
 
-require_once __DIR__ . '/setup_helpers.php';
-require_once __DIR__ . '/Database_Manager.php';
-
-use WP_UnitTestCase;
-
-class Base_Test_Case extends WP_UnitTestCase {
-    protected $autoloader;
-    protected $db_manager;
-    protected $test_db_name;
-
-    public function setUp(): void {
-        error_log("\n[TEST START] ==========================================");
-        error_log("[TEST INFO] Running: " . get_class($this) . "::" . $this->getName());
+class Database_Manager {
+    private static $instance = null;
+    private $test_db_prefix = 'test_biz_dir_';
+    private $original_db_config = [];
+    
+    public static function getInstance() {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+    
+    private function __construct() {
+        $this->original_db_config = [
+            'name' => defined('DB_NAME') ? DB_NAME : '',
+            'user' => defined('DB_USER') ? DB_USER : '',
+            'password' => defined('DB_PASSWORD') ? DB_PASSWORD : '',
+            'host' => defined('DB_HOST') ? DB_HOST : '',
+            'prefix' => $GLOBALS['wpdb']->prefix
+        ];
+    }
+    
+    public function createTestDatabase($test_name) {
+        global $wpdb;
         
-        parent::setUp();
+        // Generate a unique database name using test name and timestamp
+        $timestamp = time();
+        $test_db_name = $this->test_db_prefix . sanitize_file_name($test_name) . '_' . $timestamp;
         
-        // Create a new test database for this test
-        $this->db_manager = Database_Manager::getInstance();
-        $this->test_db_name = $this->db_manager->createTestDatabase(
-            get_class($this) . '_' . $this->getName()
+        // Connect to MySQL without database
+        $wpdb_admin = new \wpdb(
+            $this->original_db_config['user'],
+            $this->original_db_config['password'],
+            '',
+            $this->original_db_config['host']
         );
         
-        // Create schema in new test database
-        $this->db_manager->createSchema();
+        // Create new test database
+        $wpdb_admin->query("CREATE DATABASE IF NOT EXISTS `$test_db_name`");
         
-        // Create tables manually to ensure correct order and structure
+        if ($wpdb_admin->last_error) {
+            throw new \RuntimeException("Failed to create test database: " . $wpdb_admin->last_error);
+        }
+        
+        // Update WordPress database configuration
+        $this->updateDatabaseConfig($test_db_name);
+        
+        // Reconnect wpdb with new database
+        $wpdb = new \wpdb(
+            DB_USER,
+            DB_PASSWORD,
+            DB_NAME,
+            DB_HOST
+        );
+        $GLOBALS['wpdb'] = $wpdb;
+        
+        return $test_db_name;
+    }
+    
+    public function dropTestDatabase($db_name) {
+        // Connect to MySQL without database
+        $wpdb_admin = new \wpdb(
+            $this->original_db_config['user'],
+            $this->original_db_config['password'],
+            '',
+            $this->original_db_config['host']
+        );
+        
+        // Drop the test database
+        $wpdb_admin->query("DROP DATABASE IF EXISTS `$db_name`");
+        
+        if ($wpdb_admin->last_error) {
+            error_log("Warning: Failed to drop test database $db_name: " . $wpdb_admin->last_error);
+        }
+        
+        // Restore original database configuration
+        $this->restoreDatabaseConfig();
+    }
+    
+    private function updateDatabaseConfig($db_name) {
+        define('DB_NAME_TEMP', $db_name);
+        
+        // Update wp-config.php constants if they exist
+        if (defined('DB_NAME')) {
+            $this->defineConstant('DB_NAME', $db_name);
+        }
+        
+        global $wpdb;
+        $wpdb->prefix = $this->test_db_prefix . $wpdb->prefix;
+    }
+    
+    private function restoreDatabaseConfig() {
+        // Restore original database configuration
+        if (defined('DB_NAME') && defined('DB_NAME_TEMP')) {
+            $this->defineConstant('DB_NAME', $this->original_db_config['name']);
+        }
+        
+        global $wpdb;
+        $wpdb->prefix = $this->original_db_config['prefix'];
+    }
+    
+    private function defineConstant($name, $value) {
+        // WordPress doesn't allow redefining constants, so we need to use runkit if available
+        if (extension_loaded('runkit7') || extension_loaded('runkit')) {
+            if (defined($name)) {
+                runkit_constant_redefine($name, $value);
+            } else {
+                runkit_constant_add($name, $value);
+            }
+        }
+    }
+    
+    public function createSchema() {
+        global $wpdb;
+        
+        // Create tables in correct dependency order
+        $this->createTownsTable();
+        $this->createBusinessesTable();
+        $this->createReviewsTable();
+        $this->createTagsTable();
+        $this->createModerationQueueTable();
+        $this->createUserReputationTable();
+        $this->createSeoMetaTable();
+        
+        // Verify tables were created
+        $tables = $wpdb->get_col("SHOW TABLES");
+        $required_tables = [
+            'towns', 'businesses', 'reviews', 'tags',
+            'moderation_queue', 'user_reputation', 'seo_meta'
+        ];
+        
+        foreach ($required_tables as $table) {
+            $full_table = $wpdb->prefix . 'biz_' . $table;
+            if (!in_array($full_table, $tables)) {
+                throw new \RuntimeException("Schema verification failed: $full_table not found");
+            }
+        }
+    }
+    
+    private function createTownsTable() {
+        global $wpdb;
+        
         $wpdb->query("CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}biz_towns` (
             `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
             `name` varchar(100) NOT NULL,
@@ -44,7 +155,10 @@ class Base_Test_Case extends WP_UnitTestCase {
             UNIQUE KEY `slug` (`slug`),
             KEY `region` (`region`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
-        error_log("[SCHEMA] Created towns table");
+    }
+    
+    private function createBusinessesTable() {
+        global $wpdb;
         
         $wpdb->query("CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}biz_businesses` (
             `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -68,14 +182,17 @@ class Base_Test_Case extends WP_UnitTestCase {
             KEY `is_sponsored` (`is_sponsored`),
             CONSTRAINT `fk_business_town` FOREIGN KEY (`town_id`) REFERENCES `{$wpdb->prefix}biz_towns` (`id`) ON DELETE CASCADE
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
-        error_log("[SCHEMA] Created businesses table");
+    }
+    
+    private function createReviewsTable() {
+        global $wpdb;
         
         $wpdb->query("CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}biz_reviews` (
             `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
             `business_id` bigint(20) UNSIGNED NOT NULL,
             `user_id` bigint(20) UNSIGNED NOT NULL,
             `rating` decimal(2,1) NOT NULL,
-            `comment` text,
+            `content` text,
             `status` varchar(20) DEFAULT 'pending',
             `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
             `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -85,7 +202,10 @@ class Base_Test_Case extends WP_UnitTestCase {
             KEY `status` (`status`),
             CONSTRAINT `fk_review_business` FOREIGN KEY (`business_id`) REFERENCES `{$wpdb->prefix}biz_businesses` (`id`) ON DELETE CASCADE
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
-        error_log("[SCHEMA] Created reviews table");
+    }
+    
+    private function createTagsTable() {
+        global $wpdb;
         
         $wpdb->query("CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}biz_tags` (
             `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -98,7 +218,10 @@ class Base_Test_Case extends WP_UnitTestCase {
             KEY `tag` (`tag`),
             CONSTRAINT `fk_tag_business` FOREIGN KEY (`business_id`) REFERENCES `{$wpdb->prefix}biz_businesses` (`id`) ON DELETE CASCADE
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
-        error_log("[SCHEMA] Created tags table");
+    }
+    
+    private function createModerationQueueTable() {
+        global $wpdb;
         
         $wpdb->query("CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}biz_moderation_queue` (
             `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -115,7 +238,10 @@ class Base_Test_Case extends WP_UnitTestCase {
             KEY `moderator_id` (`moderator_id`),
             KEY `content_id` (`content_id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
-        error_log("[SCHEMA] Created moderation_queue table");
+    }
+    
+    private function createUserReputationTable() {
+        global $wpdb;
         
         $wpdb->query("CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}biz_user_reputation` (
             `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -128,7 +254,10 @@ class Base_Test_Case extends WP_UnitTestCase {
             UNIQUE KEY `user_id` (`user_id`),
             KEY `level` (`level`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
-        error_log("[SCHEMA] Created user_reputation table");
+    }
+    
+    private function createSeoMetaTable() {
+        global $wpdb;
         
         $wpdb->query("CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}biz_seo_meta` (
             `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -142,43 +271,5 @@ class Base_Test_Case extends WP_UnitTestCase {
             UNIQUE KEY `business_meta` (`business_id`, `meta_type`, `meta_key`),
             CONSTRAINT `fk_seo_meta_business` FOREIGN KEY (`business_id`) REFERENCES `{$wpdb->prefix}biz_businesses` (`id`) ON DELETE CASCADE
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
-        error_log("[SCHEMA] Created seo_meta table");
-        
-        // Verify tables were created
-        $tables = $wpdb->get_col("SHOW TABLES");
-        foreach ($tables_to_drop as $table) {
-            $full_table = $wpdb->prefix . $table;
-            if (!in_array($full_table, $tables)) {
-                error_log("[SCHEMA ERROR] Table $full_table was not created!");
-                throw new \RuntimeException("Schema verification failed: $full_table not found");
-            }
-        }
-        error_log("[SCHEMA] All tables created successfully");
-    }
-
-    public function tearDown(): void {
-        error_log("[CLEANUP] Starting cleanup for: " . get_class($this) . "::" . $this->getName());
-        
-        // Log any warnings or notices that occurred during the test
-        $errors = error_get_last();
-        if ($errors) {
-            error_log("[TEST WARNINGS] Last error: " . json_encode($errors));
-        }
-        
-        // Drop the test database
-        if ($this->test_db_name) {
-            $this->db_manager->dropTestDatabase($this->test_db_name);
-        }
-        
-        // Get memory usage
-        $memory = memory_get_usage(true);
-        $peak_memory = memory_get_peak_usage(true);
-        error_log(sprintf("[MEMORY] Current: %.2f MB, Peak: %.2f MB", 
-            $memory / 1024 / 1024,
-            $peak_memory / 1024 / 1024
-        ));
-        
-        parent::tearDown();
-        error_log("[TEST END] ============================================\n");
     }
 }

@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `{prefix}biz_reviews` (
   `business_id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `rating` decimal(2,1) NOT NULL,
-  `comment` text,
+  `content` text,
   `status` varchar(20) DEFAULT 'pending',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -95,4 +95,18 @@ CREATE TABLE IF NOT EXISTS `{prefix}biz_user_reputation` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id` (`user_id`),
   KEY `level` (`level`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- SEO Meta table
+CREATE TABLE IF NOT EXISTS `{prefix}biz_seo_meta` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `business_id` bigint(20) UNSIGNED NOT NULL,
+  `meta_type` varchar(50) NOT NULL,
+  `meta_key` varchar(100) NOT NULL,
+  `meta_value` text NOT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `business_meta` (`business_id`, `meta_type`, `meta_key`),
+  CONSTRAINT `fk_seo_meta_business` FOREIGN KEY (`business_id`) REFERENCES `{prefix}biz_businesses` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

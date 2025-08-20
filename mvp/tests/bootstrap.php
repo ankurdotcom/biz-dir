@@ -100,10 +100,12 @@ function _manually_load_plugin() {
     });
     _biz_dir_debug('Plugin file loaded successfully');
     
-    // Initialize database schema
-    _biz_dir_debug('Initializing database schema...');
+    // Initialize database schemas
+    _biz_dir_debug('Initializing database schemas...');
     _biz_dir_install_schema();
-    _biz_dir_debug('Database schema initialized');
+    _biz_dir_install_monetization_schema();
+    _biz_dir_install_analytics_schema();
+    _biz_dir_debug('Database schemas initialized');
 }
 tests_add_filter('muplugins_loaded', '_manually_load_plugin');
 
@@ -140,6 +142,13 @@ function _biz_dir_install_schema() {
 
     // Pre-cleanup: Drop existing tables in correct order to prevent foreign key constraint errors
     $tables_to_drop = array(
+        'biz_analytics_metrics',
+        'biz_analytics_searches',
+        'biz_views',
+        'biz_interactions',
+        'biz_subscription_features',
+        'biz_subscriptions',
+        'biz_payments',
         'biz_user_reputation',
         'biz_moderation_queue',
         'biz_reviews',
@@ -275,6 +284,97 @@ function _biz_dir_install_schema() {
             }
         }
     }
+}
+
+// Function to install monetization schema
+function _biz_dir_install_monetization_schema() {
+    global $wpdb;
+    
+    _biz_dir_debug('Starting monetization schema installation...');
+
+    // Drop monetization tables in correct order
+    $monetization_tables = array(
+        'biz_subscription_features',
+        'biz_subscriptions', 
+        'biz_payments'
+    );
+
+    foreach ($monetization_tables as $table) {
+        $wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}{$table}");
+        _biz_dir_debug("Dropped monetization table {$wpdb->prefix}{$table}");
+    }
+
+    $schema_file = dirname(dirname(__FILE__)) . '/config/monetization_schema.sql';
+    if (!file_exists($schema_file)) {
+        _biz_dir_debug('Monetization schema file not found', 'ERROR');
+        throw new RuntimeException('Monetization schema file not found at: ' . $schema_file);
+    }
+
+    $schema_sql = file_get_contents($schema_file);
+    $schema_sql = str_replace('{prefix}', $wpdb->prefix, $schema_sql);
+
+    // Split SQL into individual statements
+    $statements = array_filter(array_map('trim', explode(';', $schema_sql)));
+
+    foreach ($statements as $statement) {
+        if (!empty($statement)) {
+            if ($wpdb->query($statement) === false) {
+                _biz_dir_debug('Failed to execute monetization SQL', 'ERROR', [
+                    'error' => $wpdb->last_error,
+                    'statement' => $statement
+                ]);
+                throw new RuntimeException('Failed to execute monetization SQL: ' . $wpdb->last_error);
+            }
+        }
+    }
+
+    _biz_dir_debug('Monetization schema installed successfully');
+}
+
+// Function to install analytics schema
+function _biz_dir_install_analytics_schema() {
+    global $wpdb;
+    
+    _biz_dir_debug('Starting analytics schema installation...');
+
+    // Drop analytics tables in correct order
+    $analytics_tables = array(
+        'biz_analytics_metrics',
+        'biz_analytics_searches',
+        'biz_views',
+        'biz_interactions'
+    );
+
+    foreach ($analytics_tables as $table) {
+        $wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}{$table}");
+        _biz_dir_debug("Dropped analytics table {$wpdb->prefix}{$table}");
+    }
+
+    $schema_file = dirname(dirname(__FILE__)) . '/config/analytics_schema.sql';
+    if (!file_exists($schema_file)) {
+        _biz_dir_debug('Analytics schema file not found', 'ERROR');
+        throw new RuntimeException('Analytics schema file not found at: ' . $schema_file);
+    }
+
+    $schema_sql = file_get_contents($schema_file);
+    $schema_sql = str_replace('{prefix}', $wpdb->prefix, $schema_sql);
+
+    // Split SQL into individual statements
+    $statements = array_filter(array_map('trim', explode(';', $schema_sql)));
+
+    foreach ($statements as $statement) {
+        if (!empty($statement)) {
+            if ($wpdb->query($statement) === false) {
+                _biz_dir_debug('Failed to execute analytics SQL', 'ERROR', [
+                    'error' => $wpdb->last_error,
+                    'statement' => $statement
+                ]);
+                throw new RuntimeException('Failed to execute analytics SQL: ' . $wpdb->last_error);
+            }
+        }
+    }
+
+    _biz_dir_debug('Analytics schema installed successfully');
 }
 
 // Start up the WP testing environment.

@@ -42,6 +42,7 @@ class Base_Test_Case extends WP_UnitTestCase {
                 'biz_reviews',
                 'biz_tags',
                 'biz_user_reputation',
+                'biz_seo_meta',
                 'biz_businesses',
                 'biz_towns'
             ];

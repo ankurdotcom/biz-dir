@@ -298,4 +298,324 @@ class Business_Manager {
                 break;
         }
     }
+
+    /**
+     * Get all businesses
+     * 
+     * @return array Array of business data
+     */
+    public function get_businesses($args = []) {
+        global $wpdb;
+        
+        $defaults = [
+            'status' => 'active',
+            'orderby' => 'name',
+            'order' => 'ASC'
+        ];
+        
+        $args = wp_parse_args($args, $defaults);
+        
+        // Build the query
+        $sql = "SELECT * FROM {$wpdb->prefix}biz_businesses";
+        $where = [];
+        
+        if (!empty($args['status'])) {
+            $where[] = $wpdb->prepare('status = %s', $args['status']);
+        }
+        
+        if (!empty($where)) {
+            $sql .= ' WHERE ' . implode(' AND ', $where);
+        }
+        
+        // Add ordering
+        $allowed_orders = ['ASC', 'DESC'];
+        $allowed_orderby = ['name', 'created_at', 'updated_at'];
+        
+        $order = in_array(strtoupper($args['order']), $allowed_orders) ? strtoupper($args['order']) : 'ASC';
+        $orderby = in_array($args['orderby'], $allowed_orderby) ? $args['orderby'] : 'name';
+        
+        $sql .= " ORDER BY $orderby $order";
+
+        $businesses = $wpdb->get_results($sql, ARRAY_A);
+
+        if (!$businesses) {
+            return [];
+        }
+
+        return array_map(function($business) {
+            $contact_info = json_decode($business['contact_info'], true) ?: [];
+            
+            return [
+                'id' => $business['id'],
+                'name' => $business['name'],
+                'description' => $business['description'],
+                'status' => $business['status'],
+                'contact_info' => $contact_info,
+                'town_id' => $business['town_id'],
+                'location' => null,
+                'is_sponsored' => (bool) $business['is_sponsored'],
+                'slug' => $business['slug'],
+                'updated_at' => $business['updated_at'],
+            ];
+        }, $businesses);
+    }
+
+    /**
+     * Get business data by ID
+     *
+     * @param int $business_id Business ID
+     * @return array|null Business data or null if not found
+     */
+    public function get_business($business_id) {
+        global $wpdb;
+        
+        // First try getting from our custom table
+        $business = $wpdb->get_row($wpdb->prepare(
+            "SELECT * FROM {$wpdb->prefix}biz_businesses WHERE id = %d",
+            $business_id
+        ), ARRAY_A);
+
+        if ($business) {
+            // Get contact info from JSON column
+            $contact_info = json_decode($business['contact_info'], true) ?: [];
+            
+            return [
+                'id' => $business['id'],
+                'name' => $business['name'],
+                'description' => $business['description'],
+                'status' => $business['status'],
+                'contact_info' => $contact_info,
+                'town_id' => $business['town_id'],
+                'location' => null, // We don't have this in the businesses table
+                'is_sponsored' => (bool) $business['is_sponsored'],
+                'slug' => $business['slug'],
+                'modified' => $business['updated_at'],
+            ];
+        }
+
+        // Fallback to WordPress post data
+        $post = get_post($business_id);
+        if (!$post || $post->post_type !== self::POST_TYPE) {
+            return null;
+        }
+
+        $contact_info = get_post_meta($business_id, '_contact_info', true);
+        $town_id = get_post_meta($business_id, '_town_id', true);
+        $location = get_post_meta($business_id, '_location', true);
+        $is_sponsored = get_post_meta($business_id, '_is_sponsored', true);
+
+        return [
+            'id' => $business_id,
+            'name' => $post->post_title,
+            'description' => $post->post_content,
+            'status' => $post->post_status,
+            'contact_info' => $contact_info,
+            'town_id' => $town_id,
+            'location' => $location,
+            'is_sponsored' => $is_sponsored,
+            'slug' => $post->post_name,
+            'modified' => $post->post_modified,
+        ];
+    }
+
+    /**
+     * Create a new business
+     *
+     * @param array $data Business data
+     * @return int|false The business ID on success, false on failure
+     */
+    public function create_business($data) {
+        global $wpdb;
+
+        $defaults = [
+            'name' => '',
+            'owner_id' => get_current_user_id(),
+            'description' => '',
+            'contact_info' => json_encode([]),
+            'status' => 'active',
+            'is_sponsored' => 0,
+            'town_id' => 0,
+            'slug' => ''
+        ];
+
+        $data = wp_parse_args($data, $defaults);
+
+        // Generate slug if not provided
+        if (empty($data['slug'])) {
+            $data['slug'] = sanitize_title($data['name']);
+        }
+
+        // Insert into custom table
+        $result = $wpdb->insert(
+            $wpdb->prefix . 'biz_businesses',
+            [
+                'name' => $data['name'],
+                'owner_id' => $data['owner_id'],
+                'description' => $data['description'],
+                'contact_info' => is_string($data['contact_info']) ? $data['contact_info'] : json_encode($data['contact_info']),
+                'status' => $data['status'],
+                'is_sponsored' => (int) $data['is_sponsored'],
+                'town_id' => (int) $data['town_id'],
+                'slug' => $data['slug']
+            ]
+        );
+
+        if ($result === false) {
+            return false;
+        }
+
+        $business_id = $wpdb->insert_id;
+
+        // Create corresponding WordPress post
+        $post_data = [
+            'post_title' => $data['name'],
+            'post_content' => $data['description'],
+            'post_status' => 'publish',
+            'post_type' => self::POST_TYPE,
+            'post_name' => $data['slug'],
+        ];
+
+        $post_id = wp_insert_post($post_data);
+
+        if (!$post_id || is_wp_error($post_id)) {
+            // Rollback business insert
+            $wpdb->delete($wpdb->prefix . 'biz_businesses', ['id' => $business_id]);
+            return false;
+        }
+
+        // Save post meta
+        update_post_meta($post_id, '_business_id', $business_id);
+        update_post_meta($post_id, '_contact_info', $data['contact_info']);
+        update_post_meta($post_id, '_town_id', $data['town_id']);
+        update_post_meta($post_id, '_is_sponsored', $data['is_sponsored']);
+        
+        if (isset($data['location'])) {
+            update_post_meta($post_id, '_location', $data['location']);
+        }
+
+        return $business_id;
+    }
+
+    /**
+     * Update an existing business
+     *
+     * @param int $business_id Business ID
+     * @param array $data Updated business data
+     * @return boolean True on success, false on failure
+     */
+    public function update_business($business_id, $data) {
+        global $wpdb;
+
+        $existing = $this->get_business($business_id);
+        if (!$existing) {
+            return false;
+        }
+
+        $data = wp_parse_args($data, $existing);
+
+        // Update custom table
+        $result = $wpdb->update(
+            $wpdb->prefix . 'biz_businesses',
+            [
+                'name' => $data['name'],
+                'description' => $data['description'],
+                'contact_info' => is_string($data['contact_info']) ? $data['contact_info'] : json_encode($data['contact_info']),
+                'status' => $data['status'],
+                'is_sponsored' => (int) $data['is_sponsored'],
+                'town_id' => (int) $data['town_id'],
+                'slug' => $data['slug']
+            ],
+            ['id' => $business_id]
+        );
+
+        if ($result === false) {
+            return false;
+        }
+
+        // Find corresponding post
+        $posts = get_posts([
+            'post_type' => self::POST_TYPE,
+            'meta_key' => '_business_id',
+            'meta_value' => $business_id,
+            'posts_per_page' => 1
+        ]);
+
+        if (empty($posts)) {
+            return false;
+        }
+
+        $post = $posts[0];
+
+        // Update post data
+        $post_data = [
+            'ID' => $post->ID,
+            'post_title' => $data['name'],
+            'post_content' => $data['description'],
+            'post_name' => $data['slug']
+        ];
+
+        $post_id = wp_update_post($post_data);
+
+        if (!$post_id || is_wp_error($post_id)) {
+            return false;
+        }
+
+        // Update post meta
+        update_post_meta($post_id, '_contact_info', $data['contact_info']);
+        update_post_meta($post_id, '_town_id', $data['town_id']);
+        update_post_meta($post_id, '_is_sponsored', $data['is_sponsored']);
+        
+        if (isset($data['location'])) {
+            update_post_meta($post_id, '_location', $data['location']);
+        }
+
+        return true;
+    }
+
+    /**
+     * Add a review for a business
+     *
+     * @param array $review_data Review data
+     * @return int|false The review ID on success, false on failure
+     */
+    public function add_review($review_data) {
+        global $wpdb;
+
+        $defaults = [
+            'business_id' => 0,
+            'user_id' => get_current_user_id(),
+            'rating' => 0,
+            'content' => '',
+            'status' => 'approved'
+        ];
+
+        $data = wp_parse_args($review_data, $defaults);
+
+        if (empty($data['business_id'])) {
+            return false;
+        }
+
+        // Make sure business exists
+        $business = $this->get_business($data['business_id']);
+        if (!$business) {
+            return false;
+        }
+
+        $result = $wpdb->insert(
+            $wpdb->prefix . 'biz_reviews',
+            [
+                'business_id' => $data['business_id'],
+                'user_id' => $data['user_id'],
+                'rating' => $data['rating'],
+                'content' => $data['content'],
+                'status' => $data['status']
+            ]
+        );
+
+        if ($result === false) {
+            return false;
+        }
+
+        return $wpdb->insert_id;
+    }
 }
