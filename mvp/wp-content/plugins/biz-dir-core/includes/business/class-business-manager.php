@@ -227,7 +227,7 @@ class Business_Manager {
         }
 
         // Check user permissions
-        if (!$this->permission_handler->can('edit_business', get_current_user_id(), $post_id)) {
+        if (!Permission_Handler::can('edit_business', get_current_user_id(), $post_id)) {
             error_log('[BizDir Business] User cannot edit business');
             return;
         }
