@@ -27,10 +27,16 @@ class Init {
      * Initialize the user module
      */
     public function __construct() {
+        error_log('[BizDir User] Initializing User Module');
         $this->user_manager = new User_Manager();
         $this->auth_handler = new Auth_Handler();
         $this->permission_handler = new Permission_Handler();
 
+        $this->init();
+    }
+
+    public function init() {
+        error_log('[BizDir User] Setting up User Module hooks');
         $this->init_hooks();
     }
 

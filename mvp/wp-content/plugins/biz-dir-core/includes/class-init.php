@@ -8,11 +8,18 @@
 namespace BizDir\Core;
 
 class Init {
+    private $user_init;
+    private $business_init;
+
     /**
      * Initialize core functionality
      */
     public function __construct() {
-        // Constructor is kept empty to allow delayed initialization
+        $permission_handler = new User\Permission_Handler();
+        $business_manager = new Business\Business_Manager($permission_handler);
+        
+        $this->user_init = new User\Init();
+        $this->business_init = new Business\Init($business_manager);
     }
 
     /**
@@ -22,8 +29,8 @@ class Init {
      */
     public function init() {
         // Initialize core components
-        add_action('init', array($this, 'register_post_types'));
-        add_action('init', array($this, 'register_taxonomies'));
+        $this->user_init->init();
+        $this->business_init->init();
     }
 
     /**

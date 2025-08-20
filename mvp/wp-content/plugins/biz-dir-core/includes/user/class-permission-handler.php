@@ -224,6 +224,12 @@ class Permission_Handler {
             case 'manage_settings':
                 return user_can($user_id, 'manage_business_settings');
 
+            case 'create_business_reviews':
+                return is_user_logged_in() && get_current_user_id() == $user_id;
+
+            case 'delete_business_reviews':
+                return $obj_id ? self::can_delete_review($user_id, $obj_id) : false;
+
             default:
                 return user_can($user_id, $action);
         }
@@ -284,5 +290,27 @@ class Permission_Handler {
         $user = get_user_by('id', $user_id);
         return in_array(User_Manager::ROLE_MODERATOR, $user->roles) || 
                in_array(User_Manager::ROLE_ADMIN, $user->roles);
+    }
+
+    /**
+     * Check if user can delete a review
+     *
+     * @param int $user_id User ID
+     * @param int $review_id Review ID
+     * @return bool
+     */
+    private static function can_delete_review($user_id, $review_id) {
+        $review = get_post($review_id);
+        if (!$review || $review->post_type !== 'business_review') {
+            return false;
+        }
+
+        // Allow review author to delete their own review
+        if ($review->post_author == $user_id) {
+            return true;
+        }
+
+        // Allow moderators and admins to delete any review
+        return self::can_moderate($user_id);
     }
 }
