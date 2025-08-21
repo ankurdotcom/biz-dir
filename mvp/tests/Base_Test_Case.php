@@ -70,6 +70,11 @@ class Base_Test_Case extends WP_UnitTestCase {
                     throw new \RuntimeException("Database setup verification failed");
                 }
                 
+                // Explicitly select the database again after schema creation
+                if (!$wpdb->select($this->test_db_name)) {
+                    throw new \RuntimeException("Failed to select database after schema creation");
+                }
+                
                 error_log("[TEST SETUP] Schema creation successful");
                 
             } catch (\Exception $e) {

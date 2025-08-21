@@ -7,12 +7,49 @@ namespace BizDir\Tests;
  */
 class Setup_Helper {
     /**
+     * Verify that required tables exist
+     * 
+     * @return bool True if all required tables exist
+     */
+    private function verify_tables() {
+        global $wpdb;
+        
+        $required_tables = [
+            $wpdb->prefix . 'biz_towns',
+            $wpdb->prefix . 'biz_businesses'
+        ];
+        
+        foreach ($required_tables as $table) {
+            $exists = $wpdb->get_var(
+                $wpdb->prepare(
+                    "SELECT COUNT(*) FROM information_schema.tables 
+                     WHERE table_schema = DATABASE() 
+                     AND table_name = %s",
+                    $table
+                )
+            );
+            
+            if (!$exists) {
+                error_log("[TABLE ERROR] Missing required table: $table");
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    /**
      * Create a test town record
      * 
      * @return int|false Town ID if successful, false otherwise
      */
     public function create_test_town() {
         global $wpdb;
+        
+        if (!$this->verify_tables()) {
+            return [
+                'success' => false,
+                'error' => 'Required tables do not exist'
+            ];
         
         $result = $wpdb->insert(
             $wpdb->prefix . 'biz_towns',
