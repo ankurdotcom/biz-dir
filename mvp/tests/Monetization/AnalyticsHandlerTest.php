@@ -15,11 +15,20 @@ class AnalyticsHandlerTest extends Base_Test_Case {
         parent::setUp();
         
         $this->analytics_handler = new Analytics_Handler();
-        $this->business_manager = new Business_Manager();
+        $permission_handler = new \BizDir\Core\User\Permission_Handler();
+        $this->business_manager = new \BizDir\Core\Business\Business_Manager($permission_handler);
         
-        // Create test business
+        // Create test town first
+        $town_data = $this->setup_helper->create_test_town();
+        if (!$town_data['id']) {
+            throw new \RuntimeException('Failed to create test town');
+        }
+        $town_id = $town_data['id'];
+        
+        // Create test business with town_id
         $this->test_business_id = $this->business_manager->create_business([
-            'name' => 'Test Business'
+            'name' => 'Test Business',
+            'town_id' => $town_id
         ]);
     }
 

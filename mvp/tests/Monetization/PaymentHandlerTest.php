@@ -18,7 +18,8 @@ class PaymentHandlerTest extends Base_Test_Case {
         parent::setUp();
         
         $this->payment_handler = new Payment_Handler();
-        $this->business_manager = new Business_Manager();
+                $permission_handler = new \BizDir\Core\User\Permission_Handler();
+        $this->business_manager = new \BizDir\Core\Business\Business_Manager($permission_handler);
         $this->user_manager = new User_Manager();
         
         // Create test user
@@ -26,10 +27,18 @@ class PaymentHandlerTest extends Base_Test_Case {
             'role' => 'business_owner'
         ]);
         
-        // Create test business
+        // Create test town first
+        $town_data = $this->setup_helper->create_test_town();
+        if (!$town_data['id']) {
+            throw new \RuntimeException('Failed to create test town');
+        }
+        $town_id = $town_data['id'];
+        
+        // Create test business with town id
         $this->test_business_id = $this->business_manager->create_business([
             'name' => 'Test Business',
-            'owner_id' => $this->test_user_id
+            'owner_id' => $this->test_user_id,
+            'town_id' => $town_id
         ]);
     }
 

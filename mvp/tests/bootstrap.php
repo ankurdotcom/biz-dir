@@ -83,20 +83,22 @@ function _manually_load_plugin() {
         if (strpos($class, 'BizDir\\Tests\\') !== 0) {
             return;
         }
-        $path = str_replace(
-            ['BizDir\\Tests\\', '\\'],
-            ['', DIRECTORY_SEPARATOR],
-            $class
-        );
-        $path = str_replace('_', '-', strtolower($path));
-        $file = dirname(__FILE__) . DIRECTORY_SEPARATOR . $path . '.php';
+        
+        // Get the class name without namespace
+        $class_name = str_replace('BizDir\\Tests\\', '', $class);
+        
+        // Try exact case first
+        $file = dirname(__FILE__) . DIRECTORY_SEPARATOR . $class_name . '.php';
         error_log("Attempting to load test class: $class from $file");
+        
         if (file_exists($file)) {
             require_once $file;
             error_log("Successfully loaded test class: $class");
             return true;
         }
+        
         error_log("Could not find test class file: $file");
+        return false;
     });
     _biz_dir_debug('Plugin file loaded successfully');
     

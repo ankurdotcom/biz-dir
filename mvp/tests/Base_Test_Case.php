@@ -16,144 +16,79 @@ class Base_Test_Case extends WP_UnitTestCase {
     protected $autoloader;
     protected $db_manager;
     protected $test_db_name;
+    protected $setup_helper;
 
     public function setUp(): void {
         error_log("\n[TEST START] ==========================================");
         error_log("[TEST INFO] Running: " . get_class($this) . "::" . $this->getName());
         
-        parent::setUp();
-        
-        // Create a new test database for this test
-        $this->db_manager = Database_Manager::getInstance();
-        $this->test_db_name = $this->db_manager->createTestDatabase(
-            get_class($this) . '_' . $this->getName()
-        );
-        
-        // Create schema in new test database
-        $this->db_manager->createSchema();
-        
-        // Create tables manually to ensure correct order and structure
-        $wpdb->query("CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}biz_towns` (
-            `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-            `name` varchar(100) NOT NULL,
-            `slug` varchar(100) NOT NULL,
-            `region` varchar(100) DEFAULT NULL,
-            `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-            `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-            PRIMARY KEY (`id`),
-            UNIQUE KEY `slug` (`slug`),
-            KEY `region` (`region`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
-        error_log("[SCHEMA] Created towns table");
-        
-        $wpdb->query("CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}biz_businesses` (
-            `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-            `name` varchar(200) NOT NULL,
-            `slug` varchar(200) NOT NULL,
-            `town_id` bigint(20) UNSIGNED NOT NULL,
-            `owner_id` bigint(20) UNSIGNED NOT NULL,
-            `category` varchar(100) DEFAULT NULL,
-            `description` text,
-            `contact_info` json DEFAULT NULL,
-            `status` varchar(20) DEFAULT 'active',
-            `is_sponsored` tinyint(1) DEFAULT '0',
-            `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-            `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-            PRIMARY KEY (`id`),
-            UNIQUE KEY `slug` (`slug`),
-            KEY `town_id` (`town_id`),
-            KEY `owner_id` (`owner_id`),
-            KEY `category` (`category`),
-            KEY `status` (`status`),
-            KEY `is_sponsored` (`is_sponsored`),
-            CONSTRAINT `fk_business_town` FOREIGN KEY (`town_id`) REFERENCES `{$wpdb->prefix}biz_towns` (`id`) ON DELETE CASCADE
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
-        error_log("[SCHEMA] Created businesses table");
-        
-        $wpdb->query("CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}biz_reviews` (
-            `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-            `business_id` bigint(20) UNSIGNED NOT NULL,
-            `user_id` bigint(20) UNSIGNED NOT NULL,
-            `rating` decimal(2,1) NOT NULL,
-            `comment` text,
-            `status` varchar(20) DEFAULT 'pending',
-            `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-            `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-            PRIMARY KEY (`id`),
-            KEY `business_id` (`business_id`),
-            KEY `user_id` (`user_id`),
-            KEY `status` (`status`),
-            CONSTRAINT `fk_review_business` FOREIGN KEY (`business_id`) REFERENCES `{$wpdb->prefix}biz_businesses` (`id`) ON DELETE CASCADE
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
-        error_log("[SCHEMA] Created reviews table");
-        
-        $wpdb->query("CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}biz_tags` (
-            `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-            `business_id` bigint(20) UNSIGNED NOT NULL,
-            `tag` varchar(50) NOT NULL,
-            `weight` decimal(4,3) DEFAULT '1.000',
-            `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-            PRIMARY KEY (`id`),
-            KEY `business_id` (`business_id`),
-            KEY `tag` (`tag`),
-            CONSTRAINT `fk_tag_business` FOREIGN KEY (`business_id`) REFERENCES `{$wpdb->prefix}biz_businesses` (`id`) ON DELETE CASCADE
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
-        error_log("[SCHEMA] Created tags table");
-        
-        $wpdb->query("CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}biz_moderation_queue` (
-            `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-            `content_type` varchar(50) NOT NULL,
-            `content_id` bigint(20) UNSIGNED NOT NULL,
-            `status` varchar(20) DEFAULT 'pending',
-            `moderator_id` bigint(20) UNSIGNED DEFAULT NULL,
-            `notes` text,
-            `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-            `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-            PRIMARY KEY (`id`),
-            KEY `content_type` (`content_type`),
-            KEY `status` (`status`),
-            KEY `moderator_id` (`moderator_id`),
-            KEY `content_id` (`content_id`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
-        error_log("[SCHEMA] Created moderation_queue table");
-        
-        $wpdb->query("CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}biz_user_reputation` (
-            `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-            `user_id` bigint(20) UNSIGNED NOT NULL,
-            `reputation_points` int NOT NULL DEFAULT '0',
-            `level` varchar(20) DEFAULT 'contributor',
-            `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-            `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-            PRIMARY KEY (`id`),
-            UNIQUE KEY `user_id` (`user_id`),
-            KEY `level` (`level`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
-        error_log("[SCHEMA] Created user_reputation table");
-        
-        $wpdb->query("CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}biz_seo_meta` (
-            `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-            `business_id` bigint(20) UNSIGNED NOT NULL,
-            `meta_type` varchar(50) NOT NULL,
-            `meta_key` varchar(100) NOT NULL,
-            `meta_value` text NOT NULL,
-            `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-            `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-            PRIMARY KEY (`id`),
-            UNIQUE KEY `business_meta` (`business_id`, `meta_type`, `meta_key`),
-            CONSTRAINT `fk_seo_meta_business` FOREIGN KEY (`business_id`) REFERENCES `{$wpdb->prefix}biz_businesses` (`id`) ON DELETE CASCADE
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
-        error_log("[SCHEMA] Created seo_meta table");
-        
-        // Verify tables were created
-        $tables = $wpdb->get_col("SHOW TABLES");
-        foreach ($tables_to_drop as $table) {
-            $full_table = $wpdb->prefix . $table;
-            if (!in_array($full_table, $tables)) {
-                error_log("[SCHEMA ERROR] Table $full_table was not created!");
-                throw new \RuntimeException("Schema verification failed: $full_table not found");
+        try {
+            parent::setUp();
+            
+            // Initialize setup helper
+            $this->setup_helper = new Setup_Helper();
+            
+            // Create a new test database for this test
+            $this->db_manager = Database_Manager::getInstance();
+            
+            $test_name = get_class($this) . '_' . $this->getName();
+            error_log("[TEST SETUP] Creating test database for: $test_name");
+            
+            try {
+                $this->test_db_name = $this->db_manager->createTestDatabase($test_name);
+            } catch (\Exception $e) {
+                error_log("[DATABASE ERROR] Failed to create test database: " . $e->getMessage());
+                throw $e;
             }
+            
+            error_log("[TEST SETUP] Database created: " . $this->test_db_name);
+            
+            // Get the global wpdb after database setup
+            global $wpdb;
+            
+            try {
+                // Verify database connection before proceeding
+                $current_db = $wpdb->get_var("SELECT DATABASE()");
+                if ($current_db !== $this->test_db_name) {
+                    throw new \RuntimeException(
+                        "Connected to wrong database. Expected: {$this->test_db_name}, Got: " . 
+                        ($current_db ?: 'none')
+                    );
+                }
+                
+                error_log("[TEST SETUP] Database connection verified");
+                
+                // Disable foreign key checks temporarily
+                $wpdb->query('SET FOREIGN_KEY_CHECKS=0');
+                
+                // Create schema in new test database
+                error_log("[TEST SETUP] Creating schema...");
+                $this->db_manager->createSchema();
+                
+                // Verify database setup
+                if (!$this->db_manager->checkDatabaseSetup($this->test_db_name)) {
+                    throw new \RuntimeException("Database setup verification failed");
+                }
+                
+                error_log("[TEST SETUP] Schema creation successful");
+                
+            } catch (\Exception $e) {
+                error_log("[SCHEMA ERROR] Failed to create/verify schema: " . $e->getMessage());
+                // Clean up the database if schema creation fails
+                if ($this->test_db_name) {
+                    $this->db_manager->dropTestDatabase($this->test_db_name);
+                }
+                throw $e;
+            } finally {
+                // Always re-enable foreign key checks
+                $wpdb->query('SET FOREIGN_KEY_CHECKS=1');
+            }
+            
+        } catch (\Exception $e) {
+            error_log("[FATAL ERROR] Test setup failed: " . $e->getMessage());
+            error_log("[STACK TRACE] " . $e->getTraceAsString());
+            throw $e;
         }
-        error_log("[SCHEMA] All tables created successfully");
     }
 
     public function tearDown(): void {

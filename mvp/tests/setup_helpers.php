@@ -11,24 +11,30 @@ class Setup_Helper {
      * 
      * @return int|false Town ID if successful, false otherwise
      */
-    public static function create_test_town() {
+    public function create_test_town() {
         global $wpdb;
         
         $result = $wpdb->insert(
             $wpdb->prefix . 'biz_towns',
             array(
                 'name' => 'Test Town',
-                'slug' => 'test-town',
+                'slug' => 'test-town-' . uniqid(),
                 'region' => 'Test Region'
             ),
             array('%s', '%s', '%s')
         );
 
         if ($result === false) {
-            return false;
+            return [
+                'success' => false,
+                'id' => null
+            ];
         }
 
-        return $wpdb->insert_id;
+        return [
+            'success' => true,
+            'id' => $wpdb->insert_id
+        ];
     }
 
     /**
@@ -38,13 +44,13 @@ class Setup_Helper {
      * @param array $data Optional additional data
      * @return int|false Business ID if successful, false otherwise
      */
-    public static function create_test_business($town_id, $data = []) {
+    public function create_test_business($data = []) {
         global $wpdb;
         
         $defaults = array(
             'name' => 'Test Business',
             'slug' => 'test-business-' . uniqid(),
-            'town_id' => $town_id,
+            'town_id' => null,  // Must be provided in $data
             'owner_id' => 1,
             'category' => 'test',
             'description' => 'Test business description',
@@ -55,6 +61,14 @@ class Setup_Helper {
 
         $data = array_merge($defaults, $data);
         
+        if (!isset($data['town_id']) || empty($data['town_id'])) {
+            return [
+                'success' => false,
+                'id' => null,
+                'error' => 'town_id is required'
+            ];
+        }
+
         $result = $wpdb->insert(
             $wpdb->prefix . 'biz_businesses',
             $data,
@@ -72,9 +86,16 @@ class Setup_Helper {
         );
 
         if ($result === false) {
-            return false;
+            return [
+                'success' => false,
+                'id' => null,
+                'error' => $wpdb->last_error
+            ];
         }
 
-        return $wpdb->insert_id;
+        return [
+            'success' => true,
+            'id' => $wpdb->insert_id
+        ];
     }
 }
