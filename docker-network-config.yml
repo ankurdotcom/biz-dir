@@ -1,0 +1,72 @@
+# BizDir Network Access Configuration for Docker Compose
+# Add these environment variables to your PHP service for automatic network access
+
+# ==============================================
+# NETWORK ACCESS ENVIRONMENT VARIABLES
+# ==============================================
+
+environment:
+  # WordPress Dynamic URL Configuration
+  - BIZDIR_DYNAMIC_URLS=true
+  - WORDPRESS_CONFIG_EXTRA=
+    define('BIZDIR_NETWORK_ACCESS_ENABLED', true);
+    define('BIZDIR_AUTO_DETECT_IPS', true);
+    define('BIZDIR_ALLOW_LOCAL_NETWORKS', true);
+    
+  # Development Mode Settings  
+  - WORDPRESS_DEBUG=true
+  - WORDPRESS_DEBUG_LOG=true
+  - WORDPRESS_DEBUG_DISPLAY=false
+  
+  # Network Configuration
+  - PHP_INI_SCAN_DIR=/usr/local/etc/php/conf.d:/etc/php/conf.d
+  
+# ==============================================
+# EXAMPLE INTEGRATION
+# ==============================================
+
+# Add to your php service in docker-compose files:
+#
+# php:
+#   image: webdevops/php-nginx:8.3-alpine
+#   environment:
+#     - BIZDIR_DYNAMIC_URLS=true
+#     - BIZDIR_AUTO_DETECT_IPS=true
+#     - WP_DEBUG=true
+#   volumes:
+#     - ./mvp:/var/www/html
+#   ports:
+#     - "8888:80"
+#   networks:
+#     - bizdir_network
+
+# ==============================================
+# NETWORK CONFIGURATION
+# ==============================================
+
+# Default networks configuration for all environments
+networks:
+  bizdir_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+          gateway: 172.20.0.1
+
+# ==============================================
+# PORT MAPPINGS FOR DIFFERENT ENVIRONMENTS
+# ==============================================
+
+# Development (use in docker-compose.dev.yml)
+# ports:
+#   - "8888:80"    # Main development port
+#   - "8889:443"   # HTTPS development port
+
+# Production (use in docker-compose.yml)  
+# ports:
+#   - "80:80"      # HTTP
+#   - "443:443"    # HTTPS
+
+# Fast/Testing (use in docker-compose.fast.yml)
+# ports:
+#   - "8080:80"    # Alternative port for testing
