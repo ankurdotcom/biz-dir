@@ -1,0 +1,94 @@
+# Multi-stage build for optimal caching and size
+FROM php:8.3-fpm-alpine AS base
+
+# Install runtime dependencies only
+RUN apk add --no-cache \
+    bash \
+    curl \
+    freetype \
+    imagemagick \
+    icu-libs \
+    libpng \
+    libjpeg-turbo \
+    libwebp \
+    libzip \
+    mysql-client \
+    oniguruma
+
+# Install pre-compiled PHP extensions where possible
+RUN docker-php-ext-install -j$(nproc) \
+    bcmath \
+    exif \
+    intl \
+    mbstring \
+    mysqli \
+    opcache \
+    pdo_mysql \
+    zip
+
+# Configure GD with optimal flags
+RUN apk add --no-cache --virtual .gd-deps \
+    freetype-dev \
+    libpng-dev \
+    libjpeg-turbo-dev \
+    libwebp-dev \
+    && docker-php-ext-configure gd \
+    --with-freetype \
+    --with-jpeg \
+    --with-webp \
+    && docker-php-ext-install -j$(nproc) gd \
+    && apk del .gd-deps
+
+# Use pre-built Redis extension
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+RUN install-php-extensions redis imagick
+
+# Install tools in separate layer
+FROM base AS tools
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+RUN curl -O https://raw.githubusercontent.com/wp-cli/wp-cli/v2.8.1/wp-cli.phar \
+    && chmod +x wp-cli.phar \
+    && mv wp-cli.phar /usr/local/bin/wp
+
+# Final production image
+FROM base AS production
+
+# Copy tools from previous stage
+COPY --from=tools /usr/bin/composer /usr/bin/composer
+COPY --from=tools /usr/local/bin/wp /usr/local/bin/wp
+
+# Create www-data user (only if needed)
+RUN if ! id -u www-data > /dev/null 2>&1; then \
+    adduser -D -s /bin/sh -u 1000 -G www-data www-data; \
+    fi
+
+WORKDIR /var/www/html
+
+# Copy configs first (better caching)
+COPY docker/php/php.ini /usr/local/etc/php/
+COPY docker/php/php-fpm.conf /usr/local/etc/php-fpm.d/www.conf
+COPY docker/php/entrypoint.sh /usr/local/bin/entrypoint.sh
+
+# Install dependencies first (better caching)
+COPY mvp/composer.json mvp/composer.lock* ./
+RUN if [ -f composer.lock ]; then \
+    composer install --no-dev --optimize-autoloader --no-interaction --no-scripts; \
+    fi
+
+# Copy application code last
+COPY mvp/ ./
+
+# Set permissions
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html \
+    && chmod +x /usr/local/bin/entrypoint.sh
+
+# Lightweight health check
+HEALTHCHECK --interval=60s --timeout=3s --start-period=10s --retries=2 \
+    CMD pidof php-fpm > /dev/null || exit 1
+
+EXPOSE 9000
+USER www-data
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["php-fpm"]

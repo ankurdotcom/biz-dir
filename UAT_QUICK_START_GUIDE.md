@@ -1,58 +1,76 @@
 # BizDir Pre-Production UAT Quick Start Guide
 ## User Acceptance Testing Setup and Execution
 
-**Version:** 1.0  
+**Version:** 2.0 - Docker Production Setup  
 **Date:** August 23, 2025  
-**Purpose:** Quick setup and execution guide for UAT testing
+**Purpose:** Quick setup guide for Docker-based UAT and production testing
+
+**🔥 NEW: Production Docker Infrastructure Available**
 
 ---
 
-## 🚀 QUICK START (5 Minutes)
+## 🚀 QUICK START (2 Options Available)
 
-### Step 1: Setup UAT Environment
+### 🔥 **OPTION A: Production Docker Setup (Recommended)**
 ```bash
 # Navigate to project directory
 cd /home/ankur/workspace/biz-dir
 
-# Run UAT environment setup (requires sudo)
-./setup-uat-environment.sh
+# Copy and configure environment
+cp .env.example .env
+nano .env  # Edit your configuration
+
+# Deploy production-grade environment
+./deploy.sh deploy
+
+# Access application
+open http://localhost
 ```
 
-### Step 2: Run Initial Validation Tests
+### 🛠️ **OPTION B: Lightweight UAT Setup**
 ```bash
+# Navigate to project directory  
+cd /home/ankur/workspace/biz-dir
+
+# Run lightweight UAT environment setup
+./setup-lightweight-uat.sh
+
 # Execute automated UAT validation tests
 ./run-uat-tests.sh
 ```
 
-### Step 3: Access UAT Environment
-```bash
-# URLs (add to /etc/hosts if needed)
-http://uat.biz-dir.local          # Main site
-https://uat.biz-dir.local         # HTTPS (self-signed)
-http://uat.biz-dir.local/wp-admin # WordPress admin
-```
+### **Access URLs**
+- **Docker Setup**: http://localhost (WordPress), http://localhost/wp-admin (Admin)
+- **Lightweight Setup**: http://localhost:8080 (UAT Environment)
 
-### Step 4: Login Credentials
+### **Login Credentials**
 ```
-WordPress Admin:
-- Username: uatadmin
+Docker Setup (Configure in .env):
+- Username: admin (default, configurable)
+- Password: changeme123! (CHANGE THIS)
+
+Lightweight Setup:
+- Username: uatadmin  
 - Password: UATAdmin@2025
-
-Test Users:
-- Contributor: testcontributor / TestPass123
-- Moderator: testmoderator / TestPass123  
-- Business Owner: testbusiness / TestPass123
 ```
 
 ---
 
 ## 📋 UAT TESTING CHECKLIST
 
+### 🔥 **Phase 0: Infrastructure Setup (NEW)**
+- [ ] **Docker Environment**: Run `./deploy.sh deploy` for production setup
+- [ ] **Service Health**: Verify all containers running with `./deploy.sh status`
+- [ ] **Database Connection**: Confirm MySQL container accessible
+- [ ] **Cache Layer**: Verify Redis container operational
+- [ ] **Web Server**: Test Nginx container with SSL support
+- [ ] **Monitoring**: Access Grafana dashboard (if using full deployment)
+
 ### Phase 1: Environment Validation (Day 1)
-- [ ] **Environment Setup**: Run `./setup-uat-environment.sh`
-- [ ] **Basic Tests**: Run `./run-uat-tests.sh`
+- [ ] **Environment Setup**: Choose Docker (`./deploy.sh deploy`) or lightweight UAT
+- [ ] **Basic Tests**: Run `./run-uat-tests.sh` (for lightweight) or container health checks
 - [ ] **Access Verification**: Test all URLs and login credentials
-- [ ] **SSL Configuration**: Verify HTTPS access works
+- [ ] **SSL Configuration**: Verify HTTPS access works (Docker setup)
 - [ ] **Database Connectivity**: Confirm database access and schema
 
 ### Phase 2: Functional Testing (Days 2-3)
@@ -76,11 +94,76 @@ Test Users:
 - [ ] **Browser Compatibility**: Test on all major browsers
 - [ ] **Accessibility**: Validate WCAG compliance
 
+### 🚀 **Phase 5: Production Readiness (NEW)**
+- [ ] **Container Orchestration**: Verify service dependencies and health checks
+- [ ] **Backup Testing**: Test automated backup and restore functionality
+- [ ] **Monitoring**: Validate Prometheus metrics and Grafana dashboards
+- [ ] **SSL Certificate**: Test Let's Encrypt certificate renewal
+- [ ] **Performance Optimization**: Verify Redis caching and OPCache effectiveness
+
 ---
 
 ## 🔧 TROUBLESHOOTING
 
-### Common Issues
+### Docker Environment Issues
+```bash
+# Check all container status
+./deploy.sh status
+
+# View specific service logs
+./deploy.sh logs nginx
+./deploy.sh logs php
+./deploy.sh logs db
+./deploy.sh logs redis
+
+# Restart services
+./deploy.sh restart
+
+# Access container shell
+./deploy.sh shell php
+./deploy.sh shell nginx
+
+# Rebuild containers
+docker-compose build --no-cache
+./deploy.sh deploy
+```
+
+### Common Docker Issues
+
+#### Issue: "Port already in use"
+```bash
+# Solution: Check what's using the port
+sudo lsof -i :80
+sudo lsof -i :3306
+# Stop conflicting services or change ports in .env
+```
+
+#### Issue: "Permission denied" for data directories
+```bash
+# Solution: Fix directory permissions
+sudo chown -R www-data:www-data data/
+sudo chmod -R 755 logs/
+sudo chmod -R 755 backups/
+```
+
+#### Issue: "Database connection failed"
+```bash
+# Solution: Check MySQL container
+./deploy.sh logs db
+docker-compose exec db mysql -u root -p
+# Verify credentials in .env file
+```
+
+#### Issue: "Website not accessible"
+```bash
+# Solution: Check Nginx container and PHP-FPM
+./deploy.sh logs nginx
+./deploy.sh logs php
+# Verify container health
+docker-compose ps
+```
+
+### Lightweight UAT Issues
 
 #### Issue: "Permission Denied" during setup
 ```bash
@@ -89,28 +172,22 @@ sudo usermod -aG sudo $USER
 # Then logout and login again
 ```
 
-#### Issue: "Database connection failed"
+#### Issue: "PHP server won't start"
 ```bash
-# Solution: Check MySQL service
-sudo systemctl status mysql
-sudo systemctl start mysql
-```
-
-#### Issue: "Website not accessible"
-```bash
-# Solution: Check Apache service and virtual host
-sudo systemctl status apache2
-sudo a2ensite bizdir-uat
-sudo systemctl reload apache2
+# Solution: Check port availability
+lsof -i:8080
+# Kill existing processes
+pkill -f "php -S"
+# Try alternative port
+UAT_PORT=8081 ./setup-lightweight-uat.sh
 ```
 
 #### Issue: "Plugin not working"
 ```bash
 # Solution: Check plugin status and permissions
-cd /var/www/html/bizdir-uat
-wp plugin list
-wp plugin activate biz-dir-core
-sudo chown -R www-data:www-data wp-content/
+cd /home/ankur/workspace/biz-dir/uat-environment
+chmod 644 *.php
+chmod 755 .
 ```
 
 ### Getting Help

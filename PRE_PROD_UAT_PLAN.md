@@ -32,7 +32,24 @@ Conduct comprehensive User Acceptance Testing to validate the BizDir platform me
 
 ## 📅 UAT TIMELINE & PHASES
 
-### **Phase 1: Environment Setup & Technical Validation** (2-3 days)
+## 📅 UAT TIMELINE & PHASES
+
+### **🚀 Phase 0: Infrastructure Setup (NEW - 1 Day)**
+**Docker Production Environment Setup**
+- **Day 0**: Deploy production Docker infrastructure
+  - Deploy multi-service containerized environment
+  - Verify all services (Nginx, PHP, MySQL, Redis) are operational
+  - Configure SSL certificates and security headers
+  - Set up monitoring and backup services (optional)
+  - Validate service health checks and dependencies
+
+**Deliverables**: 
+- ✅ Production-ready containerized environment
+- ✅ Automated deployment pipeline
+- ✅ Monitoring and backup systems operational
+
+### **Phase 1: Technical Validation (2-3 Days)**
+**Foundation Testing & Security Validation**
 
 #### Day 1: Staging Environment Setup
 - [ ] **Production-Like Environment**: Deploy to staging server with production specifications
@@ -300,43 +317,63 @@ Expected Results:
 
 ## 🔍 TEST ENVIRONMENT SPECIFICATIONS
 
-### **Infrastructure Requirements**
-```
-Server Specifications:
-- OS: Ubuntu 22.04 LTS or CentOS 8
-- Web Server: Apache 2.4+ or Nginx 1.18+
-- PHP: 8.0+ with required extensions
-- Database: MySQL 8.0+ or MariaDB 10.3+
-- Memory: 8GB RAM minimum, 16GB recommended
-- Storage: 100GB SSD with backup storage
-- SSL: Valid certificate for testing domain
+### 🔥 **Production Docker Infrastructure (NEW - Recommended)**
+
+**Complete Containerized Environment:**
+- **Web Server**: Nginx 1.24 with SSL support and security headers
+- **Application**: PHP 8.3-FPM with optimized configuration
+- **Database**: MySQL 8.0 with production tuning
+- **Cache**: Redis 7.2 for performance optimization
+- **Search**: Elasticsearch 8.11 (optional)
+- **Monitoring**: Prometheus + Grafana stack (optional)
+- **Backup**: Automated backup service (optional)
+- **SSL**: Let's Encrypt integration for HTTPS
+
+**Deployment:**
+```bash
+# One-command production setup
+./deploy.sh deploy [full]
+
+# Access points
+http://localhost          # Main application
+http://localhost/wp-admin # WordPress admin
+http://localhost:3000     # Grafana (if enabled)
+http://localhost:9090     # Prometheus (if enabled)
 ```
 
-### **Software Configuration**
-```
-WordPress Setup:
-- WordPress 6.3+ (latest stable)
-- All security plugins and configurations
-- Production-level caching (Redis/Memcached)
-- Error logging and monitoring tools
-- Backup automation system
+**Environment Configuration:**
+- **Resource Allocation**: Configurable via .env file
+- **Security**: Production-grade hardening included
+- **Performance**: OPCache, Redis caching, optimized MySQL
+- **Monitoring**: Health checks and service dependencies
+- **Backup**: Automated daily backups with retention
 
-Payment Gateway Configuration:
-- Razorpay: Test/sandbox mode
-- PayU: Test environment
-- Stripe: Test mode with test cards
-```
+### **Alternative: Lightweight UAT Environment**
 
-### **Test Data Requirements**
-```
-Sample Data Sets:
-- Towns: 25+ Indian cities with proper data
-- Businesses: 500+ realistic business listings
-- Categories: Complete business category taxonomy
-- Users: 100+ test users across all roles
-- Reviews: 1000+ realistic reviews and ratings
-- Test Transactions: Payment testing scenarios
-```
+**Lightweight PHP Server Setup:**
+- **Server**: PHP 8.3.6 Built-in Development Server
+- **Port**: 8080 (configurable)
+- **Database**: SQLite (for basic testing)
+- **Setup**: `./setup-lightweight-uat.sh`
+
+**Specifications:**
+- **PHP Version**: 8.3.6 (Exceeds WordPress 8.0+ requirement)
+- **Memory**: 512MB allocated
+- **Storage**: Local filesystem
+- **Performance**: Optimized for development testing
+
+### **Environment Comparison:**
+
+| Feature | Docker Production | Lightweight UAT |
+|---------|------------------|----------------|
+| **Setup Time** | 5 minutes | 2 minutes |
+| **Production Similarity** | 100% | 60% |
+| **Database** | MySQL 8.0 | SQLite |
+| **Cache Layer** | Redis | None |
+| **SSL Support** | Yes (Let's Encrypt) | No |
+| **Monitoring** | Full (Grafana) | Basic |
+| **Performance** | Production-grade | Development |
+| **Use Case** | Final UAT + Production | Quick validation |
 
 ---
 

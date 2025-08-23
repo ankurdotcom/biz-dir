@@ -4,15 +4,25 @@ A comprehensive business directory plugin for WordPress with advanced search, ra
 
 ## 🚀 Quick Start
 
-### ⚠️ Important: Configuration Setup Required
-**Before deploying**, you must set up external configuration management for security. See **[SETUP_EXTERNAL_CONFIG.md](SETUP_EXTERNAL_CONFIG.md)** for quick setup instructions.
-
-### Basic Installation
+### 🔥 **NEW: Production Docker Setup (Recommended)**
 ```bash
 # Clone the repository
 git clone https://github.com/ankurdotcom/biz-dir.git
 cd biz-dir
 
+# Copy and configure environment
+cp .env.example .env
+nano .env  # Edit your configuration
+
+# Deploy production-grade environment
+./deploy.sh deploy
+
+# Access your application
+open http://localhost
+```
+
+### 🛠️ **Alternative: Manual Installation**
+```bash
 # Install dependencies
 cd mvp && composer install
 
@@ -23,9 +33,17 @@ cd mvp && composer install
 ./run-tests.sh
 ```
 
+### ⚠️ Important: Configuration Setup Required
+**Before deploying manually**, you must set up external configuration management for security. See **[SETUP_EXTERNAL_CONFIG.md](SETUP_EXTERNAL_CONFIG.md)** for quick setup instructions.
+
 ## 📚 Documentation
 
-### 🔧 Setup and Configuration
+### � **Docker Production Setup** 
+- **[docker/README.md](docker/README.md)** - 🔥 **NEW**: Complete Docker production guide
+- **[DOCKER_UAT_EXECUTION_GUIDE.md](DOCKER_UAT_EXECUTION_GUIDE.md)** - Docker-based UAT testing
+- **[.env.example](.env.example)** - Environment configuration template
+
+### �🔧 Setup and Configuration
 - **[SETUP_EXTERNAL_CONFIG.md](SETUP_EXTERNAL_CONFIG.md)** - ⚠️ **REQUIRED**: External configuration setup
 - **[PROJECT_SETUP_GUIDE.md](PROJECT_SETUP_GUIDE.md)** - Complete setup instructions for new machines
 - **[CONFIGURATION_GUIDE.md](CONFIGURATION_GUIDE.md)** - Comprehensive configuration management guide

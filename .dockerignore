@@ -1,0 +1,22 @@
+# Docker build optimization ignore
+.git/
+.gitignore
+README.md
+*.md
+.phpunit.result.cache
+tests/
+docs/
+wiki/
+backups/
+logs/
+ssl/
+prompt/
+deploy/
+bin/install-wp-tests.sh
+*.sh
+phpunit*.xml
+dependency_diagnostic.php
+run-*.php
+TEST_REPORT.md
+UAT_*.md
+wordpress-tests-lib/

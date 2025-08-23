@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  # Minimal Development Setup - 3 services only
+  
+  # Database Service
+  db:
+    image: mysql:8.0
+    container_name: bizdir_db_dev
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: bizdir_dev
+      MYSQL_USER: bizdir
+      MYSQL_PASSWORD: bizdir123
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    volumes:
+      - db_dev_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password --skip-innodb-doublewrite
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: bizdir_redis_dev
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: redis-server --save "" --appendonly no  # No persistence for dev
+
+  # PHP Development (using pre-built image with extensions)
+  php:
+    image: webdevops/php-nginx:8.3-alpine
+    container_name: bizdir_php_dev
+    restart: unless-stopped
+    depends_on:
+      - db
+      - redis
+    environment:
+      - WEB_DOCUMENT_ROOT=/var/www/html
+      - PHP_DISMOD=bz2,calendar,exiif,ftp,ldap,mysqli,imap,interbase,odbc,pdp_dblib,pdo_firebird,snmp,soap,sybase_ct,tidx,xmlrpc,xsl
+    volumes:
+      - ./mvp:/var/www/html
+    networks:
+      - dev_network
+    ports:
+      - "8888:80"
+
+  # Nginx Web Server (remove since PHP image includes nginx)
+  # nginx:
+  #   image: nginx:alpine
+  #   container_name: bizdir_nginx_dev
+  #   restart: unless-stopped
+  #   depends_on:
+  #     - php
+  #   ports:
+  #     - "80:80"
+  #   volumes:
+  #     - ./mvp:/var/www/html:ro
+  #     - ./docker/nginx/dev.conf:/etc/nginx/conf.d/default.conf
+  #   networks:
+  #     - dev_network
+
+volumes:
+  db_dev_data:
+
+networks:
+  dev_network:
+    driver: bridge
