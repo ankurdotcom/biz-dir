@@ -1,0 +1,63 @@
+```plaintext
+Title: AI Prompt Creation and Refinement Workflow
+
+Objective:
+Establish a standardized workflow for capturing user input, refining requirements, and converting them into well-structured, AI-compatible prompt formats. This enables consistent prompt creation that follows established patterns and maintains quality standards across all project documentation.
+
+Instructions:
+When user says "create prompt", initiate the following workflow:
+
+1. **Capture Phase:**
+   - Begin active listening mode for all subsequent user input
+   - Record everything the user types verbatim
+   - Note context, examples, and specific requirements
+   - Continue until user indicates completion
+
+2. **Refinement Phase:**
+   - Analyze captured input for clarity and completeness
+   - Identify missing elements (title, objective, instructions, etc.)
+   - Ask clarifying questions if needed
+   - Organize information into logical sections
+
+3. **Structuring Phase:**
+   - Convert refined input into standard prompt format:
+     * Title: Clear, descriptive heading
+     * Objective: Purpose and goal statement
+     * Instructions: Step-by-step guidance
+     * Validation & Acceptance Criteria: Success metrics
+     * Additional sections as needed (Tech Constraints, Core Features, etc.)
+
+4. **File Creation:**
+   - Generate appropriate filename using next sequential number
+   - Follow naming convention: `##_Descriptive_Title.txt`
+   - Save to `/prompt/` directory
+   - Update any relevant documentation
+
+Format Standards:
+- Use consistent markdown formatting with code blocks
+- Keep language clear and actionable
+- Include specific, measurable criteria
+- Maintain compatibility with existing prompt structure
+- Ensure AI tools can easily parse and execute
+
+Validation & Acceptance Criteria:
+- Prompt follows established format of existing files
+- Title is descriptive and unique
+- Objective clearly states the purpose
+- Instructions are actionable and specific
+- Acceptance criteria are measurable
+- File is properly numbered and saved
+- Content is AI-compatible and executable
+
+Workflow Triggers:
+- User input: "create prompt"
+- User input: "new prompt"
+- User input: "prompt creation"
+
+Meta Information:
+- Created: August 23, 2025
+- Purpose: Standardize prompt creation process
+- Integration: Works with existing prompt library
+- Maintenance: Update format as standards evolve
+
+```

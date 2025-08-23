@@ -234,6 +234,146 @@ function biz_dir_display_rating($rating, $show_text = true) {
 }
 
 /**
+ * Display business card for listings
+ */
+function biz_dir_display_business_card($post_id) {
+    $phone = get_post_meta($post_id, '_business_phone', true);
+    $address = get_post_meta($post_id, '_business_address', true);
+    $email = get_post_meta($post_id, '_business_email', true);
+    $website = get_post_meta($post_id, '_business_website', true);
+    $hours = get_post_meta($post_id, '_business_hours', true);
+    $rating = get_post_meta($post_id, '_business_rating', true);
+    $price_range = get_post_meta($post_id, '_business_price_range', true);
+    $features = get_post_meta($post_id, '_business_features', true);
+    
+    $categories = get_the_category($post_id);
+    $primary_category = !empty($categories) ? $categories[0] : null;
+    ?>
+    <div class="business-card" data-business-id="<?php echo esc_attr($post_id); ?>">
+        <?php if (has_post_thumbnail($post_id)) : ?>
+            <div class="business-image">
+                <a href="<?php echo esc_url(get_permalink($post_id)); ?>">
+                    <?php echo get_the_post_thumbnail($post_id, 'business-thumbnail', ['alt' => get_the_title($post_id)]); ?>
+                </a>
+            </div>
+        <?php endif; ?>
+        
+        <div class="business-content">
+            <div class="business-header">
+                <h3 class="business-title">
+                    <a href="<?php echo esc_url(get_permalink($post_id)); ?>"><?php echo esc_html(get_the_title($post_id)); ?></a>
+                </h3>
+                
+                <?php if ($primary_category) : ?>
+                    <span class="business-category">
+                        <a href="<?php echo esc_url(get_category_link($primary_category->term_id)); ?>">
+                            <?php echo esc_html($primary_category->name); ?>
+                        </a>
+                    </span>
+                <?php endif; ?>
+            </div>
+            
+            <div class="business-excerpt">
+                <?php echo wp_trim_words(get_the_excerpt($post_id), 20, '...'); ?>
+            </div>
+            
+            <div class="business-meta">
+                <?php if ($rating) : ?>
+                    <div class="business-rating-small">
+                        <?php biz_dir_display_rating($rating, true); ?>
+                    </div>
+                <?php endif; ?>
+                
+                <?php if ($price_range) : ?>
+                    <span class="price-range"><?php echo esc_html($price_range); ?></span>
+                <?php endif; ?>
+            </div>
+            
+            <div class="business-contact-preview">
+                <?php if ($phone) : ?>
+                    <div class="contact-item">
+                        <span class="contact-icon">📞</span>
+                        <a href="tel:<?php echo esc_attr($phone); ?>"><?php echo esc_html($phone); ?></a>
+                    </div>
+                <?php endif; ?>
+                
+                <?php if ($address) : ?>
+                    <div class="contact-item">
+                        <span class="contact-icon">📍</span>
+                        <span><?php echo esc_html(wp_trim_words($address, 6, '...')); ?></span>
+                    </div>
+                <?php endif; ?>
+            </div>
+            
+            <?php if ($features) : ?>
+                <div class="business-features">
+                    <small><?php echo esc_html($features); ?></small>
+                </div>
+            <?php endif; ?>
+            
+            <div class="business-actions">
+                <a href="<?php echo esc_url(get_permalink($post_id)); ?>" class="btn btn-primary btn-small">
+                    <?php esc_html_e('View Details', 'biz-dir'); ?>
+                </a>
+                
+                <?php if (!is_user_logged_in()) : ?>
+                    <button class="btn btn-outline btn-small login-prompt" data-action="review">
+                        <?php esc_html_e('Login to Review', 'biz-dir'); ?>
+                    </button>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+    <?php
+}
+
+/**
+ * Get category icon based on category slug
+ */
+function biz_dir_get_category_icon($category_slug) {
+    $icons = [
+        'restaurants-food' => '🍽️',
+        'cloud-kitchen' => '👨‍🍳',
+        'street-food' => '🍜',
+        'fine-dining' => '🥂',
+        'fast-food' => '🍔',
+        'catering-services' => '🎉',
+        'health-fitness' => '💪',
+        'gym-fitness' => '🏋️',
+        'yoga-center' => '🧘',
+        'medical-clinic' => '🏥',
+        'pharmacy' => '💊',
+        'dental-clinic' => '🦷',
+        'education-training' => '📚',
+        'tuition-teacher' => '👨‍🏫',
+        'coaching-center' => '📖',
+        'computer-training' => '💻',
+        'language-classes' => '🗣️',
+        'music-classes' => '🎵',
+        'home-services' => '🏠',
+        'electrician' => '⚡',
+        'carpenter' => '🔨',
+        'plumber' => '🔧',
+        'house-cleaning' => '🧹',
+        'security-service' => '🛡️',
+        'kabadi-wala' => '♻️',
+        'shopping-retail' => '🛍️',
+        'furniture-store' => '🛋️',
+        'home-decor' => '🎨',
+        'electronics-shop' => '📱',
+        'sabzi-wala' => '🥬',
+        'grocery-store' => '🛒',
+        'professional-services' => '💼',
+        'automotive' => '🚗',
+        'beauty-wellness' => '💄',
+        'travel-tourism' => '✈️',
+        'real-estate' => '🏘️'
+    ];
+    
+    return isset($icons[$category_slug]) ? $icons[$category_slug] : '🏪';
+}
+
+/**
  * Display business contact information
  */
 function biz_dir_display_contact_info($business_id) {

@@ -1,18 +1,18 @@
 <?php
 /**
- * Prevent direct access
- */
-if (!defined('ABSPATH')) {
-    exit;
-}
-
-/**
  * Autoloader Class
  *
  * @package BizDir\Core
  */
 
 namespace BizDir\Core;
+
+/**
+ * Prevent direct access
+ */
+if (!defined('ABSPATH')) {
+    exit;
+}
 
 class Autoloader {
     /**

@@ -15,7 +15,418 @@
         initFilterToggle();
         initScrollToTop();
         initAccessibility();
+        initBusinessDirectory();
+        initLoginPrompts();
+        initShareFeatures();
     });
+    
+    /**
+     * Initialize business directory specific features
+     */
+    function initBusinessDirectory() {
+        initBusinessSearch();
+        initCategoryFilters();
+        initBusinessRatings();
+        initContactActions();
+    }
+    
+    /**
+     * Initialize business search functionality
+     */
+    function initBusinessSearch() {
+        const $searchForm = $('#businessSearchForm');
+        const $searchResults = $('#searchResults');
+        const $resultsGrid = $('#searchResultsGrid');
+        
+        if (!$searchForm.length) return;
+        
+        $searchForm.on('submit', function(e) {
+            e.preventDefault();
+            performBusinessSearch();
+        });
+        
+        // Real-time search with debounce
+        $('#businessQuery').on('input', debounce(function() {
+            const query = $(this).val().trim();
+            if (query.length >= 2) {
+                performBusinessSearch();
+            } else if (query.length === 0) {
+                clearSearchResults();
+            }
+        }, 500));
+        
+        // Category filter change
+        $('#businessCategory').on('change', function() {
+            performBusinessSearch();
+        });
+        
+        function performBusinessSearch() {
+            const query = $('#businessQuery').val().trim();
+            const category = $('#businessCategory').val();
+            
+            if (!query && !category) {
+                clearSearchResults();
+                return;
+            }
+            
+            // Show loading state
+            showSearchLoading();
+            
+            // AJAX search request
+            $.ajax({
+                url: bizDirTheme.ajaxUrl,
+                type: 'POST',
+                data: {
+                    action: 'biz_dir_search',
+                    nonce: bizDirTheme.nonce,
+                    query: query,
+                    category: category
+                },
+                success: function(response) {
+                    if (response.success) {
+                        displaySearchResults(response.data);
+                    } else {
+                        showSearchError();
+                    }
+                },
+                error: function() {
+                    showSearchError();
+                }
+            });
+        }
+        
+        function showSearchLoading() {
+            $searchResults.show();
+            $resultsGrid.html('<div class="search-loading">🔍 ' + bizDirTheme.strings.loading + '</div>');
+            
+            // Scroll to results
+            $('html, body').animate({
+                scrollTop: $searchResults.offset().top - 100
+            }, 500);
+        }
+        
+        function displaySearchResults(businesses) {
+            if (!businesses || businesses.length === 0) {
+                $resultsGrid.html('<div class="no-search-results">' +
+                    '<h3>No businesses found</h3>' +
+                    '<p>Try adjusting your search terms or browse our categories.</p>' +
+                    '</div>');
+                return;
+            }
+            
+            let html = '';
+            businesses.forEach(function(business) {
+                html += createBusinessCardHTML(business);
+            });
+            
+            $resultsGrid.html(html);
+            
+            // Announce to screen readers
+            if (window.announceToScreenReader) {
+                window.announceToScreenReader(businesses.length + ' businesses found');
+            }
+        }
+        
+        function showSearchError() {
+            $resultsGrid.html('<div class="search-error">' +
+                '<h3>Search Error</h3>' +
+                '<p>' + bizDirTheme.strings.error + '</p>' +
+                '</div>');
+        }
+        
+        function clearSearchResults() {
+            $searchResults.hide();
+            $resultsGrid.empty();
+        }
+        
+        function createBusinessCardHTML(business) {
+            const contactInfo = business.contact_info ? JSON.parse(business.contact_info) : {};
+            const rating = parseFloat(business.rating) || 0;
+            
+            return `
+                <div class="business-card" data-business-id="${business.id}">
+                    <div class="business-content">
+                        <div class="business-header">
+                            <h3 class="business-title">
+                                <a href="/business/${business.slug}/">${business.name}</a>
+                            </h3>
+                            <span class="business-category">${business.category}</span>
+                        </div>
+                        <div class="business-excerpt">
+                            ${business.description ? business.description.substring(0, 100) + '...' : ''}
+                        </div>
+                        <div class="business-meta">
+                            ${rating > 0 ? `<div class="business-rating-small">${createStarRating(rating)}</div>` : ''}
+                        </div>
+                        <div class="business-contact-preview">
+                            ${contactInfo.phone ? `
+                                <div class="contact-item">
+                                    <span class="contact-icon">📞</span>
+                                    <a href="tel:${contactInfo.phone}">${contactInfo.phone}</a>
+                                </div>
+                            ` : ''}
+                            ${contactInfo.address ? `
+                                <div class="contact-item">
+                                    <span class="contact-icon">📍</span>
+                                    <span>${contactInfo.address.substring(0, 50)}...</span>
+                                </div>
+                            ` : ''}
+                        </div>
+                        <div class="business-actions">
+                            <a href="/business/${business.slug}/" class="btn btn-primary btn-small">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function createStarRating(rating) {
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 >= 0.5;
+            const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+            
+            let html = '<div class="stars">';
+            
+            for (let i = 0; i < fullStars; i++) {
+                html += '<span class="star">★</span>';
+            }
+            
+            if (hasHalfStar) {
+                html += '<span class="star half">★</span>';
+            }
+            
+            for (let i = 0; i < emptyStars; i++) {
+                html += '<span class="star empty">☆</span>';
+            }
+            
+            html += '</div>';
+            html += `<span class="rating-text">${rating.toFixed(1)}</span>`;
+            
+            return html;
+        }
+    }
+    
+    /**
+     * Initialize category filter functionality
+     */
+    function initCategoryFilters() {
+        const $sortBy = $('#sortBy');
+        const $filterRating = $('#filterRating');
+        const $filterPrice = $('#filterPrice');
+        const $applyFilters = $('#applyFilters');
+        
+        if ($applyFilters.length) {
+            $applyFilters.on('click', function() {
+                applyBusinessFilters();
+            });
+        }
+        
+        // Auto-apply filters on change
+        $sortBy.add($filterRating).add($filterPrice).on('change', function() {
+            applyBusinessFilters();
+        });
+        
+        function applyBusinessFilters() {
+            const sort = $sortBy.val();
+            const rating = $filterRating.val();
+            const price = $filterPrice.val();
+            
+            // Add loading state
+            $('.businesses-grid').addClass('loading');
+            
+            // This would typically reload the page with new parameters
+            // or make an AJAX request to filter results
+            const url = new URL(window.location);
+            url.searchParams.set('sort', sort);
+            url.searchParams.set('rating', rating);
+            url.searchParams.set('price', price);
+            
+            // Remove empty parameters
+            if (!sort) url.searchParams.delete('sort');
+            if (!rating) url.searchParams.delete('rating');
+            if (!price) url.searchParams.delete('price');
+            
+            window.location.href = url.toString();
+        }
+    }
+    
+    /**
+     * Initialize business ratings display
+     */
+    function initBusinessRatings() {
+        $('.business-rating').each(function() {
+            const $rating = $(this);
+            const rating = parseFloat($rating.data('rating')) || 0;
+            
+            // Animate star fill on page load
+            setTimeout(function() {
+                $rating.addClass('animated');
+            }, 500);
+        });
+    }
+    
+    /**
+     * Initialize contact action buttons
+     */
+    function initContactActions() {
+        // Phone number click tracking
+        $('body').on('click', 'a[href^="tel:"]', function() {
+            const phoneNumber = $(this).attr('href').replace('tel:', '');
+            
+            // Track phone click (for analytics)
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'contact', {
+                    'method': 'phone',
+                    'phone_number': phoneNumber
+                });
+            }
+            
+            // Show feedback to user
+            showContactFeedback($(this), 'Phone number copied to clipboard');
+        });
+        
+        // Email click tracking
+        $('body').on('click', 'a[href^="mailto:"]', function() {
+            const email = $(this).attr('href').replace('mailto:', '');
+            
+            // Track email click
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'contact', {
+                    'method': 'email',
+                    'email': email
+                });
+            }
+        });
+        
+        function showContactFeedback($element, message) {
+            const $feedback = $('<span class="contact-feedback">' + message + '</span>');
+            
+            $element.after($feedback);
+            
+            setTimeout(function() {
+                $feedback.fadeOut(function() {
+                    $(this).remove();
+                });
+            }, 2000);
+        }
+    }
+    
+    /**
+     * Initialize login prompts for anonymous users
+     */
+    function initLoginPrompts() {
+        const $modal = $('#loginModal');
+        
+        // Handle login prompt buttons
+        $('body').on('click', '.login-prompt', function(e) {
+            e.preventDefault();
+            
+            const action = $(this).data('action');
+            showLoginModal(action);
+        });
+        
+        // Modal close functionality
+        $modal.find('.modal-close').on('click', function() {
+            hideLoginModal();
+        });
+        
+        // Close modal on overlay click
+        $modal.on('click', function(e) {
+            if (e.target === this) {
+                hideLoginModal();
+            }
+        });
+        
+        // Close modal on escape key
+        $(document).on('keydown', function(e) {
+            if (e.key === 'Escape' && $modal.is(':visible')) {
+                hideLoginModal();
+            }
+        });
+        
+        function showLoginModal(action) {
+            let title = 'Login Required';
+            let message = 'Please login or register to access this feature.';
+            
+            switch(action) {
+                case 'review':
+                    title = 'Login to Write Review';
+                    message = 'Login to write reviews and help others discover great businesses.';
+                    break;
+                case 'save':
+                    title = 'Login to Save Business';
+                    message = 'Login to save businesses to your favorites and access them anytime.';
+                    break;
+                case 'contact':
+                    title = 'Login to View Contact Details';
+                    message = 'Login to view full contact information for this business.';
+                    break;
+            }
+            
+            $modal.find('.modal-header h3').text(title);
+            $modal.find('.modal-body p').text(message);
+            $modal.show().addClass('show');
+            
+            // Focus management for accessibility
+            $modal.find('.btn-primary').focus();
+        }
+        
+        function hideLoginModal() {
+            $modal.hide().removeClass('show');
+        }
+    }
+    
+    /**
+     * Initialize share features
+     */
+    function initShareFeatures() {
+        // Copy link functionality
+        $('body').on('click', '.copy-link', function(e) {
+            e.preventDefault();
+            
+            const url = $(this).data('url') || window.location.href;
+            
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(url).then(function() {
+                    showShareFeedback($(e.target), 'Link copied!');
+                });
+            } else {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = url;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                showShareFeedback($(e.target), 'Link copied!');
+            }
+        });
+        
+        // Track social shares
+        $('body').on('click', '.share-btn', function() {
+            const platform = $(this).hasClass('facebook') ? 'facebook' :
+                           $(this).hasClass('twitter') ? 'twitter' :
+                           $(this).hasClass('whatsapp') ? 'whatsapp' : 'other';
+            
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'share', {
+                    'method': platform,
+                    'content_type': 'business'
+                });
+            }
+        });
+        
+        function showShareFeedback($element, message) {
+            const originalText = $element.text();
+            
+            $element.text(message);
+            
+            setTimeout(function() {
+                $element.text(originalText);
+            }, 1500);
+        }
+    }
     
     /**
      * Initialize mobile menu toggle
@@ -151,8 +562,8 @@
      */
     function initFilterToggle() {
         // Create mobile filter toggle if filters exist
-        if ($('.search-filters').length) {
-            const $filters = $('.search-filters');
+        if ($('.search-filters, .category-filters').length) {
+            const $filters = $('.search-filters, .category-filters');
             const $toggleBtn = $('<button class="filter-toggle mobile-only">' +
                 '<span>Filters</span>' +
                 '<svg width="16" height="16" viewBox="0 0 16 16">' +
@@ -253,74 +664,6 @@
             timeout = setTimeout(later, wait);
         };
     }
-    
-    /**
-     * Throttle function for scroll events
-     */
-    function throttle(func, limit) {
-        let inThrottle;
-        return function() {
-            const args = arguments;
-            const context = this;
-            if (!inThrottle) {
-                func.apply(context, args);
-                inThrottle = true;
-                setTimeout(() => inThrottle = false, limit);
-            }
-        };
-    }
-    
-    /**
-     * Show search suggestions (placeholder)
-     */
-    function showSearchSuggestions(query) {
-        // This would typically make an AJAX request to get suggestions
-        // and display them in a dropdown below the search field
-        console.log('Searching for:', query);
-    }
-    
-    /**
-     * Form validation helpers
-     */
-    function validateForm($form) {
-        let isValid = true;
-        
-        $form.find('[required]').each(function() {
-            const $field = $(this);
-            const value = $field.val().trim();
-            
-            if (!value) {
-                markFieldAsInvalid($field, 'This field is required');
-                isValid = false;
-            } else {
-                markFieldAsValid($field);
-            }
-        });
-        
-        return isValid;
-    }
-    
-    function markFieldAsInvalid($field, message) {
-        $field.addClass('invalid');
-        
-        let $error = $field.next('.field-error');
-        if (!$error.length) {
-            $error = $('<span class="field-error"></span>');
-            $field.after($error);
-        }
-        
-        $error.text(message);
-    }
-    
-    function markFieldAsValid($field) {
-        $field.removeClass('invalid');
-        $field.next('.field-error').remove();
-    }
-    
-    // Make validation functions available globally
-    window.validateForm = validateForm;
-    window.markFieldAsInvalid = markFieldAsInvalid;
-    window.markFieldAsValid = markFieldAsValid;
     
 })(jQuery);
 

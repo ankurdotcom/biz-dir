@@ -1,0 +1,86 @@
+```plaintext
+Title: Anonymous User Public Business Directory Access
+
+Objective:
+Implement public read-only access to business directory information for anonymous users. Customers should be able to browse all businesses across all categories and view public contact details without requiring registration or login. This provides maximum discoverability while encouraging user registration for enhanced features.
+
+Instructions:
+Design and implement a public-facing business directory interface that allows anonymous users to:
+
+1. **Browse All Businesses:**
+   - Display complete business listings from all categories
+   - Show business names, descriptions, and basic information
+   - Include business photos and gallery images
+   - Present category classifications and tags
+
+2. **View Public Contact Information:**
+   - Display phone numbers, email addresses (if public)
+   - Show business addresses and location details
+   - Include business hours and availability
+   - Present website links and social media profiles
+
+3. **Category Navigation:**
+   - Allow browsing businesses by category and subcategory
+   - Implement category filtering and sorting options
+   - Show business count per category
+   - Enable cross-category browsing
+
+4. **Search Functionality:**
+   - Provide search by business name, category, or location
+   - Include basic filtering options (rating, location, etc.)
+   - Display search results with relevant business information
+   - Support keyword-based discovery
+
+5. **Read-Only Restrictions:**
+   - Disable review submission for anonymous users
+   - Hide business management features
+   - Show "Register to Review" prompts on business pages
+   - Prevent access to user-specific features
+
+6. **Registration Encouragement:**
+   - Display clear benefits of registration on relevant pages
+   - Show "Login to access more features" messages
+   - Include registration call-to-action buttons
+   - Highlight premium features available to registered users
+
+Technical Requirements:
+- All business data should be publicly accessible via clean URLs
+- Implement proper SEO optimization for public listings
+- Ensure fast loading times for anonymous browsing
+- Use caching for frequently accessed public data
+- Maintain responsive design for all device types
+
+Security Considerations:
+- Validate all public data display to prevent XSS attacks
+- Implement rate limiting for search and browsing
+- Ensure no sensitive business information is exposed
+- Protect against automated scraping while allowing legitimate access
+
+Validation & Acceptance Criteria:
+- ✅ Anonymous users can browse all business categories without login
+- ✅ Public contact details (phone, email, address) are visible
+- ✅ Business descriptions and basic information display correctly
+- ✅ Category navigation and filtering work without authentication
+- ✅ Search functionality returns relevant results for anonymous users
+- ✅ No review submission or business management access for anonymous users
+- ✅ Clear registration prompts appear on appropriate pages
+- ✅ Page loading performance meets standards (<3 seconds)
+- ✅ All public pages are SEO-optimized and crawlable
+- ✅ Responsive design works across all device types
+- ✅ No security vulnerabilities in public data display
+- ✅ Rate limiting prevents abuse while allowing normal browsing
+
+User Experience Goals:
+- Encourage exploration and discovery of local businesses
+- Provide immediate value to first-time visitors
+- Create clear pathways to user registration
+- Maintain professional, trustworthy appearance
+- Optimize for search engine discoverability
+
+Meta Information:
+- Created: August 23, 2025
+- Purpose: Define public access requirements for business directory
+- Integration: Works with existing user authentication system
+- Related Prompts: 03_User_Auth_and_Roles.txt, 04_Business_Listing_Module.txt
+
+```

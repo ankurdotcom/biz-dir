@@ -49,6 +49,8 @@ cd mvp && composer install
 - **[CONFIGURATION_GUIDE.md](CONFIGURATION_GUIDE.md)** - Comprehensive configuration management guide
 
 ### 🧠 Knowledge Base
+- **[SEED_DATA_DOCUMENTATION.md](SEED_DATA_DOCUMENTATION.md)** - 🌱 **Complete seed data guide** with 4 data sets
+- **[TROUBLESHOOTING_KNOWLEDGE_TRACKER.md](TROUBLESHOOTING_KNOWLEDGE_TRACKER.md)** - Solutions to common issues
 - **[mvp/tests/KNOWLEDGE_TRACKER.md](mvp/tests/KNOWLEDGE_TRACKER.md)** - Testing methodology and technical learnings
 - **[mvp/tests/AI_TROUBLESHOOTING_TRACKER.md](mvp/tests/AI_TROUBLESHOOTING_TRACKER.md)** - AI-assisted debugging patterns
 - **[mvp/tests/UAT_READINESS_EXECUTIVE_SUMMARY.md](mvp/tests/UAT_READINESS_EXECUTIVE_SUMMARY.md)** - Quality assurance status

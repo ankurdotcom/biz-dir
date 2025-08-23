@@ -18,6 +18,8 @@ services:
       - db_dev_data:/var/lib/mysql
     ports:
       - "3306:3306"
+    networks:
+      - dev_network
     command: --default-authentication-plugin=mysql_native_password --skip-innodb-doublewrite
 
   # Redis Cache
@@ -27,6 +29,8 @@ services:
     restart: unless-stopped
     ports:
       - "6379:6379"
+    networks:
+      - dev_network
     command: redis-server --save "" --appendonly no  # No persistence for dev
 
   # PHP Development (using pre-built image with extensions)
@@ -39,7 +43,7 @@ services:
       - redis
     environment:
       - WEB_DOCUMENT_ROOT=/var/www/html
-      - PHP_DISMOD=bz2,calendar,exiif,ftp,ldap,mysqli,imap,interbase,odbc,pdp_dblib,pdo_firebird,snmp,soap,sybase_ct,tidx,xmlrpc,xsl
+      # Remove problematic PHP_DISMOD - let all extensions load by default
     volumes:
       - ./mvp:/var/www/html
     networks:

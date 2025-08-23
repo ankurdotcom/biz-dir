@@ -17,6 +17,12 @@ A role-based documentation system with real-time project monitoring and executiv
 3. Run migrations: `php setup.php`
 4. Access: `http://localhost/wiki`
 
+## Documentation Available
+- **[Seed Data Documentation](seed-data-documentation.md)** - Comprehensive guide to all seed data files
+- **Database Schema** - Complete database structure and relationships
+- **API Documentation** - REST API endpoints and usage
+- **Deployment Guides** - Docker and production deployment instructions
+
 ## Roles & Access Levels
 - **Developers**: Technical docs, API, code architecture
 - **QA**: Test plans, bug reports, quality metrics
