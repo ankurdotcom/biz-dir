@@ -1,12 +1,5 @@
 <?php
 /**
- * Prevent direct access
- */
-if (!defined('ABSPATH')) {
-    exit;
-}
-
-/**
  * Subscription Manager Class
  *
  * Handles all subscription-related operations including creation, management,

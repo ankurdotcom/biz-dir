@@ -1,12 +1,5 @@
 <?php
 /**
- * Prevent direct access
- */
-if (!defined('ABSPATH')) {
-    exit;
-}
-
-/**
  * Logger Class for BizDir
  *
  * @package BizDir\Core\Utility

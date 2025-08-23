@@ -1,12 +1,5 @@
 <?php
 /**
- * Prevent direct access
- */
-if (!defined('ABSPATH')) {
-    exit;
-}
-
-/**
  * Business Details Meta Box View
  * 
  * @var WP_Post $post Current post object

@@ -1,12 +1,5 @@
 <?php
 /**
- * Prevent direct access
- */
-if (!defined('ABSPATH')) {
-    exit;
-}
-
-/**
  * User Manager Class
  *
  * @package BizDir\Core\User

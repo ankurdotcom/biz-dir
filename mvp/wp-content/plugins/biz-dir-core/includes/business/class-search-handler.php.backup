@@ -1,12 +1,5 @@
 <?php
 /**
- * Prevent direct access
- */
-if (!defined('ABSPATH')) {
-    exit;
-}
-
-/**
  * Business Search Handler
  *
  * @package BizDir\Core\Business
