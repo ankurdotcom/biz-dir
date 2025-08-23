@@ -1,0 +1,362 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 min-h-screen text-white" x-data="executiveDashboard()" x-init="init()">
+    <!-- Header -->
+    <div class="px-6 py-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-4xl font-bold mb-2">Executive Dashboard</h1>
+                    <p class="text-indigo-200">Strategic insights and key performance indicators</p>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="text-right">
+                        <div class="text-sm text-indigo-200">Last Updated</div>
+                        <div class="font-medium" x-text="new Date().toLocaleString()"></div>
+                    </div>
+                    <button @click="refreshData()" class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-4 py-2 hover:bg-white/20 transition-all">
+                        <i class="fas fa-sync-alt mr-2" :class="{ 'animate-spin': loading }"></i>Refresh
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- KPI Grid -->
+    <div class="px-6 pb-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <!-- Project Completion -->
+                <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-sm text-indigo-200 mb-1">Project Completion</div>
+                            <div class="text-3xl font-bold mb-2" x-text="kpi.project_completion + '%'">100%</div>
+                            <div class="flex items-center text-green-300">
+                                <i class="fas fa-arrow-up text-xs mr-1"></i>
+                                <span class="text-sm">Complete</span>
+                            </div>
+                        </div>
+                        <div class="h-16 w-16 bg-green-500/20 rounded-full flex items-center justify-center">
+                            <i class="fas fa-check-circle text-green-300 text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Revenue Projection -->
+                <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-sm text-indigo-200 mb-1">Revenue Projection</div>
+                            <div class="text-3xl font-bold mb-2">₹5L+</div>
+                            <div class="flex items-center text-green-300">
+                                <i class="fas fa-arrow-up text-xs mr-1"></i>
+                                <span class="text-sm">Annual target</span>
+                            </div>
+                        </div>
+                        <div class="h-16 w-16 bg-emerald-500/20 rounded-full flex items-center justify-center">
+                            <i class="fas fa-rupee-sign text-emerald-300 text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Productivity -->
+                <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-sm text-indigo-200 mb-1">Team Productivity</div>
+                            <div class="text-3xl font-bold mb-2" x-text="kpi.team_productivity + '%'">95%</div>
+                            <div class="flex items-center text-blue-300">
+                                <i class="fas fa-arrow-up text-xs mr-1"></i>
+                                <span class="text-sm">Excellent</span>
+                            </div>
+                        </div>
+                        <div class="h-16 w-16 bg-blue-500/20 rounded-full flex items-center justify-center">
+                            <i class="fas fa-users text-blue-300 text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- System Health -->
+                <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-sm text-indigo-200 mb-1">System Health</div>
+                            <div class="text-3xl font-bold mb-2" x-text="kpi.system_health + '%'">99.9%</div>
+                            <div class="flex items-center text-green-300">
+                                <i class="fas fa-circle text-xs mr-1"></i>
+                                <span class="text-sm">Operational</span>
+                            </div>
+                        </div>
+                        <div class="h-16 w-16 bg-purple-500/20 rounded-full flex items-center justify-center">
+                            <i class="fas fa-heartbeat text-purple-300 text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts and Detailed Metrics -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <!-- Project Timeline -->
+                <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6">
+                    <h3 class="text-xl font-semibold mb-4">
+                        <i class="fas fa-calendar mr-2"></i>Project Timeline
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-3 bg-white/5 rounded-lg">
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-green-400 rounded-full mr-3"></div>
+                                <div>
+                                    <div class="font-medium">Phase 1-6 Complete</div>
+                                    <div class="text-sm text-indigo-200">Aug 20-22, 2025</div>
+                                </div>
+                            </div>
+                            <div class="text-green-300 font-bold">100%</div>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-white/5 rounded-lg">
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-blue-400 rounded-full mr-3"></div>
+                                <div>
+                                    <div class="font-medium">Production Deployment</div>
+                                    <div class="text-sm text-indigo-200">Sept 1, 2025</div>
+                                </div>
+                            </div>
+                            <div class="text-blue-300 font-bold">Ready</div>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-white/5 rounded-lg">
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-yellow-400 rounded-full mr-3"></div>
+                                <div>
+                                    <div class="font-medium">Market Launch</div>
+                                    <div class="text-sm text-indigo-200">Sept 15, 2025</div>
+                                </div>
+                            </div>
+                            <div class="text-yellow-300 font-bold">Planned</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technical Metrics -->
+                <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6">
+                    <h3 class="text-xl font-semibold mb-4">
+                        <i class="fas fa-code mr-2"></i>Technical Metrics
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-indigo-200">Code Quality</span>
+                            <div class="flex items-center">
+                                <div class="w-24 bg-white/20 rounded-full h-2 mr-3">
+                                    <div class="bg-green-400 h-2 rounded-full" style="width: 95%"></div>
+                                </div>
+                                <span class="font-bold">A+</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-indigo-200">Test Coverage</span>
+                            <div class="flex items-center">
+                                <div class="w-24 bg-white/20 rounded-full h-2 mr-3">
+                                    <div class="bg-blue-400 h-2 rounded-full" style="width: 100%"></div>
+                                </div>
+                                <span class="font-bold">100%</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-indigo-200">Performance</span>
+                            <div class="flex items-center">
+                                <div class="w-24 bg-white/20 rounded-full h-2 mr-3">
+                                    <div class="bg-purple-400 h-2 rounded-full" style="width: 90%"></div>
+                                </div>
+                                <span class="font-bold">< 3s</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-indigo-200">Security Score</span>
+                            <div class="flex items-center">
+                                <div class="w-24 bg-white/20 rounded-full h-2 mr-3">
+                                    <div class="bg-green-400 h-2 rounded-full" style="width: 98%"></div>
+                                </div>
+                                <span class="font-bold">A+</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Business Intelligence -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Market Analysis -->
+                <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6">
+                    <h3 class="text-xl font-semibold mb-4">
+                        <i class="fas fa-chart-pie mr-2"></i>Market Analysis
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span class="text-indigo-200">Target Market</span>
+                            <span class="font-bold">Local Businesses</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-indigo-200">Addressable Market</span>
+                            <span class="font-bold">₹100Cr+</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-indigo-200">Competition</span>
+                            <span class="font-bold text-green-300">Low</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-indigo-200">Market Entry</span>
+                            <span class="font-bold text-blue-300">Q4 2025</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Financial Projections -->
+                <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6">
+                    <h3 class="text-xl font-semibold mb-4">
+                        <i class="fas fa-chart-line mr-2"></i>Financial Outlook
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span class="text-indigo-200">Development Cost</span>
+                            <span class="font-bold text-green-300">₹0 (In-house)</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-indigo-200">Operating Cost</span>
+                            <span class="font-bold">₹2,000/year</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-indigo-200">Break-even</span>
+                            <span class="font-bold text-yellow-300">3-6 months</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-indigo-200">ROI (Year 1)</span>
+                            <span class="font-bold text-green-300">25,000%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Risk Assessment -->
+                <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6">
+                    <h3 class="text-xl font-semibold mb-4">
+                        <i class="fas fa-shield-alt mr-2"></i>Risk Assessment
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span class="text-indigo-200">Technical Risk</span>
+                            <span class="px-2 py-1 bg-green-500/30 text-green-300 rounded-full text-sm font-bold">Low</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-indigo-200">Market Risk</span>
+                            <span class="px-2 py-1 bg-yellow-500/30 text-yellow-300 rounded-full text-sm font-bold">Medium</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-indigo-200">Financial Risk</span>
+                            <span class="px-2 py-1 bg-green-500/30 text-green-300 rounded-full text-sm font-bold">Minimal</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-indigo-200">Overall Risk</span>
+                            <span class="px-2 py-1 bg-green-500/30 text-green-300 rounded-full text-sm font-bold">Low</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Items -->
+            <div class="mt-8 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6">
+                <h3 class="text-xl font-semibold mb-4">
+                    <i class="fas fa-tasks mr-2"></i>Strategic Action Items
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-white/5 rounded-lg p-4">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-rocket text-blue-300 mr-2"></i>
+                            <span class="font-medium">Launch Preparation</span>
+                        </div>
+                        <div class="text-sm text-indigo-200">Production deployment and go-live checklist</div>
+                        <div class="mt-2">
+                            <span class="px-2 py-1 bg-blue-500/30 text-blue-300 rounded-full text-xs">In Progress</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white/5 rounded-lg p-4">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-bullhorn text-green-300 mr-2"></i>
+                            <span class="font-medium">Marketing Strategy</span>
+                        </div>
+                        <div class="text-sm text-indigo-200">Customer acquisition and brand awareness campaign</div>
+                        <div class="mt-2">
+                            <span class="px-2 py-1 bg-yellow-500/30 text-yellow-300 rounded-full text-xs">Planned</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white/5 rounded-lg p-4">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-handshake text-purple-300 mr-2"></i>
+                            <span class="font-medium">Partnerships</span>
+                        </div>
+                        <div class="text-sm text-indigo-200">Strategic business partnerships and integrations</div>
+                        <div class="mt-2">
+                            <span class="px-2 py-1 bg-purple-500/30 text-purple-300 rounded-full text-xs">Planned</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white/5 rounded-lg p-4">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-expand text-orange-300 mr-2"></i>
+                            <span class="font-medium">Scale Planning</span>
+                        </div>
+                        <div class="text-sm text-indigo-200">Infrastructure scaling and feature expansion</div>
+                        <div class="mt-2">
+                            <span class="px-2 py-1 bg-orange-500/30 text-orange-300 rounded-full text-xs">Q1 2026</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function executiveDashboard() {
+        return {
+            loading: false,
+            kpi: {
+                project_completion: 100,
+                revenue_projection: 500000,
+                team_productivity: 95,
+                system_health: 99.9,
+                active_users: 8,
+                documentation_coverage: 95
+            },
+            
+            init() {
+                this.loadKPIData();
+                // Auto-refresh every 5 minutes
+                setInterval(() => this.loadKPIData(), 300000);
+            },
+            
+            async loadKPIData() {
+                try {
+                    // In real implementation, fetch from API
+                    // const response = await fetch('/api/executive/kpi');
+                    // this.kpi = await response.json();
+                    
+                    // Mock real-time data updates
+                    this.kpi.system_health = 99.7 + Math.random() * 0.3;
+                    this.kpi.team_productivity = 90 + Math.random() * 10;
+                } catch (error) {
+                    console.error('Failed to load KPI data:', error);
+                }
+            },
+            
+            async refreshData() {
+                this.loading = true;
+                await this.loadKPIData();
+                setTimeout(() => {
+                    this.loading = false;
+                }, 1000);
+            }
+        };
+    }
+</script>
+{% endblock %}

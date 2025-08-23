@@ -2,6 +2,7 @@
     "name": "biz-dir/community-directory",
     "description": "A community-driven business directory platform",
     "type": "project",
+    "license": "proprietary",
     "require": {
         "php": ">=8.0",
         "composer/installers": "^2.0"

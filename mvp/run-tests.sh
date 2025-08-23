@@ -1,13 +1,27 @@
 #!/bin/bash
 
-# Simple test runner for BizDir project that doesn't require MySQL
+# Test runner for BizDir project with external results directory
 
 echo "🚀 Running BizDir Core Tests"
 echo "============================="
 
+# External test results configuration
+EXTERNAL_RESULTS_DIR="/home/ankur/biz-dir-test-results"
+TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+
+# Create timestamped subdirectories
+mkdir -p "$EXTERNAL_RESULTS_DIR/logs/$TIMESTAMP"
+mkdir -p "$EXTERNAL_RESULTS_DIR/results/$TIMESTAMP"
+mkdir -p "$EXTERNAL_RESULTS_DIR/coverage/$TIMESTAMP"
+
+echo "📁 Test results will be stored in: $EXTERNAL_RESULTS_DIR"
+echo "📅 Timestamp: $TIMESTAMP"
+echo ""
+
 # Set up environment
 export WP_TESTS_DIR="/dev/null"
 export BIZ_DIR_TEST_MODE=1
+export BIZDIR_TEST_RESULTS_DIR="$EXTERNAL_RESULTS_DIR"
 
 # Test 1: Syntax validation
 echo "📋 Test 1: PHP Syntax Validation"

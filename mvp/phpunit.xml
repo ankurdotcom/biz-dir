@@ -12,13 +12,29 @@
             <directory suffix="Test.php">./tests</directory>
         </testsuite>
     </testsuites>
+    
+    <!-- External test results configuration -->
+    <logging>
+        <log type="junit" target="/home/ankur/biz-dir-test-results/results/junit.xml"/>
+        <log type="testdox-html" target="/home/ankur/biz-dir-test-results/results/testdox.html"/>
+        <log type="testdox-text" target="/home/ankur/biz-dir-test-results/results/testdox.txt"/>
+    </logging>
+    
     <coverage>
         <include>
             <directory suffix=".php">wp-content/plugins/biz-dir-core/includes</directory>
         </include>
+        <report>
+            <html outputDirectory="/home/ankur/biz-dir-test-results/coverage/html"/>
+            <clover outputFile="/home/ankur/biz-dir-test-results/coverage/clover.xml"/>
+            <text outputFile="/home/ankur/biz-dir-test-results/coverage/coverage.txt"/>
+        </report>
     </coverage>
+    
     <php>
         <env name="WP_TESTS_DIR" value="/tmp/wordpress-tests-lib"/>
         <env name="WP_CORE_DIR" value="/tmp/wordpress"/>
+        <!-- External results directory -->
+        <env name="BIZDIR_TEST_RESULTS_DIR" value="/home/ankur/biz-dir-test-results"/>
     </php>
 </phpunit>

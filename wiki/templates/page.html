@@ -1,0 +1,370 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} - BizDir Wiki{% endblock %}
+
+{% block content %}
+<div x-data="pageData()" x-init="init()">
+    <!-- Page Header -->
+    <div class="bg-white border-b border-gray-200 px-6 py-4">
+        <div class="flex items-center justify-between">
+            <div>
+                <div class="flex items-center text-sm text-gray-500 mb-2">
+                    <a href="/dashboard" class="hover:text-indigo-600">Dashboard</a>
+                    {% if page.category %}
+                    <i class="fas fa-chevron-right mx-2"></i>
+                    <a href="/category/{{ page.category.slug }}" class="hover:text-indigo-600">{{ page.category.name }}</a>
+                    {% endif %}
+                    <i class="fas fa-chevron-right mx-2"></i>
+                    <span>{{ page.title }}</span>
+                </div>
+                <h1 class="text-2xl font-bold text-gray-900">{{ page.title }}</h1>
+                <div class="flex items-center text-sm text-gray-500 mt-2">
+                    <img src="https://ui-avatars.com/api/?name={{ page.author.name }}&size=24&background=6366f1&color=fff" 
+                         alt="{{ page.author.name }}" class="w-6 h-6 rounded-full mr-2">
+                    <span>{{ page.author.name }}</span>
+                    <span class="mx-2">•</span>
+                    <time datetime="{{ page.updated_at }}">{{ page.updated_at|date('M j, Y') }}</time>
+                    {% if page.version > 1 %}
+                    <span class="mx-2">•</span>
+                    <span>Version {{ page.version }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <!-- Actions -->
+                {% if user.canEdit(page) %}
+                <a href="/page/{{ page.slug }}/edit" 
+                   class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors">
+                    <i class="fas fa-edit mr-2"></i>Edit
+                </a>
+                {% endif %}
+                
+                <div class="relative" x-data="{ open: false }">
+                    <button @click="open = !open" 
+                            class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </button>
+                    <div x-show="open" @click.away="open = false" 
+                         class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-10">
+                        <a href="/page/{{ page.slug }}/history" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                            <i class="fas fa-history mr-2"></i>View History
+                        </a>
+                        <a href="/page/{{ page.slug }}/comments" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                            <i class="fas fa-comments mr-2"></i>Comments ({{ page.comments_count }})
+                        </a>
+                        {% if user.canManage(page) %}
+                        <div class="border-t border-gray-100"></div>
+                        <a href="/page/{{ page.slug }}/settings" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                            <i class="fas fa-cog mr-2"></i>Settings
+                        </a>
+                        <button @click="duplicatePage()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                            <i class="fas fa-copy mr-2"></i>Duplicate
+                        </button>
+                        {% endif %}
+                        {% if user.isAdmin() %}
+                        <div class="border-t border-gray-100"></div>
+                        <button @click="deletePage()" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                            <i class="fas fa-trash mr-2"></i>Delete
+                        </button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Content -->
+    <div class="flex-1 flex">
+        <!-- Main Content -->
+        <div class="flex-1 px-6 py-6">
+            <div class="max-w-4xl mx-auto">
+                <!-- Page Tags -->
+                {% if page.tags %}
+                <div class="mb-6">
+                    <div class="flex flex-wrap gap-2">
+                        {% for tag in page.tags %}
+                        <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                            {{ tag.name }}
+                        </span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Content -->
+                <div class="prose prose-lg max-w-none">
+                    {{ page.content|markdown|raw }}
+                </div>
+
+                <!-- Attachments -->
+                {% if page.attachments %}
+                <div class="mt-8 p-4 bg-gray-50 rounded-lg">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                        <i class="fas fa-paperclip mr-2"></i>Attachments
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {% for attachment in page.attachments %}
+                        <div class="flex items-center p-3 bg-white rounded-lg border border-gray-200">
+                            <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center mr-3">
+                                <i class="fas fa-file text-gray-500"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-gray-900 truncate">{{ attachment.filename }}</p>
+                                <p class="text-sm text-gray-500">{{ attachment.size|filesize }}</p>
+                            </div>
+                            <a href="/attachment/{{ attachment.id }}/download" 
+                               class="text-indigo-600 hover:text-indigo-700">
+                                <i class="fas fa-download"></i>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Related Pages -->
+                {% if related_pages %}
+                <div class="mt-8 p-4 bg-gray-50 rounded-lg">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                        <i class="fas fa-link mr-2"></i>Related Pages
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {% for related in related_pages %}
+                        <a href="/page/{{ related.slug }}" 
+                           class="block p-3 bg-white rounded-lg border border-gray-200 hover:border-indigo-300 transition-colors">
+                            <h4 class="font-medium text-gray-900">{{ related.title }}</h4>
+                            <p class="text-sm text-gray-600 mt-1">{{ related.excerpt }}</p>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Comments Section -->
+                <div class="mt-8 border-t border-gray-200 pt-8">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-6">
+                        <i class="fas fa-comments mr-2"></i>Comments ({{ page.comments_count }})
+                    </h3>
+                    
+                    <!-- Add Comment Form -->
+                    {% if user.canComment() %}
+                    <div class="mb-6">
+                        <form @submit.prevent="addComment()" class="space-y-4">
+                            <div>
+                                <textarea x-model="newComment" 
+                                          rows="3" 
+                                          placeholder="Add a comment..."
+                                          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+                            </div>
+                            <div class="flex justify-end">
+                                <button type="submit" 
+                                        :disabled="!newComment.trim()"
+                                        class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed">
+                                    <i class="fas fa-paper-plane mr-2"></i>Add Comment
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    {% endif %}
+
+                    <!-- Comments List -->
+                    <div class="space-y-6">
+                        {% for comment in page.comments %}
+                        <div class="flex space-x-3">
+                            <img src="https://ui-avatars.com/api/?name={{ comment.author.name }}&size=40&background=6366f1&color=fff" 
+                                 alt="{{ comment.author.name }}" class="w-10 h-10 rounded-full">
+                            <div class="flex-1">
+                                <div class="bg-gray-50 rounded-lg p-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h4 class="font-medium text-gray-900">{{ comment.author.name }}</h4>
+                                        <time class="text-sm text-gray-500">{{ comment.created_at|date('M j, Y g:i A') }}</time>
+                                    </div>
+                                    <p class="text-gray-700">{{ comment.content }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="w-80 bg-gray-50 border-l border-gray-200 p-6">
+            <!-- Table of Contents -->
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                    <i class="fas fa-list mr-2"></i>Table of Contents
+                </h3>
+                <div id="toc" class="space-y-2 text-sm">
+                    <!-- Generated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Page Information -->
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                    <i class="fas fa-info-circle mr-2"></i>Page Information
+                </h3>
+                <div class="space-y-3 text-sm">
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Created:</span>
+                        <span class="text-gray-900">{{ page.created_at|date('M j, Y') }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Updated:</span>
+                        <span class="text-gray-900">{{ page.updated_at|date('M j, Y') }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Version:</span>
+                        <span class="text-gray-900">{{ page.version }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Views:</span>
+                        <span class="text-gray-900">{{ page.views_count }}</span>
+                    </div>
+                    {% if page.category %}
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Category:</span>
+                        <a href="/category/{{ page.category.slug }}" class="text-indigo-600 hover:text-indigo-700">
+                            {{ page.category.name }}
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Contributors -->
+            {% if page.contributors %}
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                    <i class="fas fa-users mr-2"></i>Contributors
+                </h3>
+                <div class="space-y-2">
+                    {% for contributor in page.contributors %}
+                    <div class="flex items-center space-x-2">
+                        <img src="https://ui-avatars.com/api/?name={{ contributor.name }}&size=24&background=6366f1&color=fff" 
+                             alt="{{ contributor.name }}" class="w-6 h-6 rounded-full">
+                        <span class="text-sm text-gray-900">{{ contributor.name }}</span>
+                        <span class="text-xs text-gray-500">({{ contributor.edits_count }} edits)</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+function pageData() {
+    return {
+        newComment: '',
+        
+        init() {
+            this.generateTOC();
+        },
+        
+        generateTOC() {
+            const tocContainer = document.getElementById('toc');
+            const headings = document.querySelectorAll('.prose h1, .prose h2, .prose h3, .prose h4');
+            
+            if (headings.length === 0) {
+                tocContainer.innerHTML = '<p class="text-gray-500 text-sm">No headings found</p>';
+                return;
+            }
+            
+            let tocHTML = '';
+            headings.forEach((heading, index) => {
+                const id = `heading-${index}`;
+                heading.id = id;
+                
+                const level = parseInt(heading.tagName.slice(1));
+                const indent = (level - 1) * 12;
+                
+                tocHTML += `
+                    <a href="#${id}" class="block py-1 text-gray-600 hover:text-indigo-600 transition-colors" style="padding-left: ${indent}px;">
+                        ${heading.textContent}
+                    </a>
+                `;
+            });
+            
+            tocContainer.innerHTML = tocHTML;
+        },
+        
+        async addComment() {
+            if (!this.newComment.trim()) return;
+            
+            try {
+                const response = await fetch(`/api/pages/{{ page.slug }}/comments`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('wiki_token')}`
+                    },
+                    body: JSON.stringify({
+                        content: this.newComment
+                    })
+                });
+                
+                if (response.ok) {
+                    this.newComment = '';
+                    window.location.reload(); // Reload to show new comment
+                } else {
+                    alert('Failed to add comment');
+                }
+            } catch (error) {
+                console.error('Error adding comment:', error);
+                alert('Failed to add comment');
+            }
+        },
+        
+        async duplicatePage() {
+            if (!confirm('Are you sure you want to duplicate this page?')) return;
+            
+            try {
+                const response = await fetch(`/api/pages/{{ page.slug }}/duplicate`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('wiki_token')}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    window.location.href = `/page/${result.slug}`;
+                } else {
+                    alert('Failed to duplicate page');
+                }
+            } catch (error) {
+                console.error('Error duplicating page:', error);
+                alert('Failed to duplicate page');
+            }
+        },
+        
+        async deletePage() {
+            if (!confirm('Are you sure you want to delete this page? This action cannot be undone.')) return;
+            
+            try {
+                const response = await fetch(`/api/pages/{{ page.slug }}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('wiki_token')}`
+                    }
+                });
+                
+                if (response.ok) {
+                    window.location.href = '/dashboard';
+                } else {
+                    alert('Failed to delete page');
+                }
+            } catch (error) {
+                console.error('Error deleting page:', error);
+                alert('Failed to delete page');
+            }
+        }
+    }
+}
+</script>
+{% endblock %}

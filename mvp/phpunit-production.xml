@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+         bootstrap="tests/bootstrap-mock.php"
+         colors="true"
+         verbose="true"
+         stopOnFailure="false"
+         processIsolation="true"
+         convertDeprecationsToExceptions="false"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="false"
+         convertWarningsToExceptions="false"
+         beStrictAboutTestsThatDoNotTestAnything="true"
+         beStrictAboutOutputDuringTests="true"
+         beStrictAboutChangesToGlobalState="true"
+         forceCoversAnnotation="false"
+         executionOrder="random"
+         resolveDependencies="true"
+         testdox="true">
+    
+    <!-- Industry Standard: Comprehensive Test Suites with Clear Separation of Concerns -->
+    <testsuites>
+        <!-- Primary Regression Test Suite -->
+        <testsuite name="RegressionTests">
+            <directory>tests/Regression/</directory>
+        </testsuite>
+        
+        <!-- OWASP Security-Focused Test Suites -->
+        <testsuite name="Security">
+            <file>tests/Regression/AuthSecurityRegressionTest.php</file>
+        </testsuite>
+        
+        <!-- Core Business Logic Tests -->
+        <testsuite name="BusinessLogic">
+            <file>tests/Regression/CoreBusinessLogicRegressionTest.php</file>
+        </testsuite>
+        
+        <!-- Database Performance and Optimization -->
+        <testsuite name="Performance">
+            <file>tests/Regression/DatabasePerformanceRegressionTest.php</file>
+        </testsuite>
+        
+        <!-- SEO and Content Management -->
+        <testsuite name="SEO">
+            <file>tests/Regression/SEORegressionTest.php</file>
+        </testsuite>
+        
+        <!-- Content Moderation and Workflow -->
+        <testsuite name="Moderation">
+            <file>tests/Regression/ModerationRegressionTest.php</file>
+        </testsuite>
+        
+        <!-- Analytics and Data Processing -->
+        <testsuite name="Analytics">
+            <file>tests/Regression/AnalyticsRegressionTest.php</file>
+        </testsuite>
+        
+        <!-- Third-party Integration Testing -->
+        <testsuite name="Integration">
+            <file>tests/Regression/IntegrationRegressionTest.php</file>
+        </testsuite>
+        
+        <!-- End-to-End User Journey Testing -->
+        <testsuite name="EndToEnd">
+            <file>tests/Regression/EndToEndRegressionTest.php</file>
+        </testsuite>
+    </testsuites>
+    
+    <!-- Industry Standard: Code Coverage Configuration -->
+    <coverage processUncoveredFiles="true"
+              includeUncoveredFiles="true"
+              pathCoverage="false"
+              ignoreDeprecatedCodeUnits="true"
+              disableCodeCoverageIgnore="false">
+        <include>
+            <directory suffix=".php">wp-content/plugins/biz-dir-core/</directory>
+        </include>
+        <exclude>
+            <directory>vendor/</directory>
+            <directory>tests/</directory>
+            <directory>wordpress-tests-lib/</directory>
+            <file>wp-tests-config.php</file>
+            <file>wp-tests-config-sqlite.php</file>
+        </exclude>
+        <report>
+            <!-- Multiple coverage report formats for different stakeholders -->
+            <html outputDirectory="tests/coverage/html" lowUpperBound="50" highLowerBound="80"/>
+            <xml outputDirectory="tests/coverage/xml"/>
+            <clover outputFile="/home/ankur/biz-dir-test-results/coverage/production_clover.xml"/>
+            <text outputFile="/home/ankur/biz-dir-test-results/coverage/production_coverage.txt" showUncoveredFiles="true"/>
+        </report>
+    </coverage>
+    
+    <!-- Industry Standard: Comprehensive Logging -->
+    <logging>
+        <!-- JUnit XML for CI/CD integration -->
+                <junit outputFile="/home/ankur/biz-dir-test-results/results/junit_production.xml"/>
+        
+        <!-- Test Documentation Output (Industry Standard) -->
+        <testdoxHtml outputFile="/home/ankur/biz-dir-test-results/results/production_testdox.html"/>
+        <testdoxText outputFile="/home/ankur/biz-dir-test-results/results/production_testdox.txt"/>
+        
+        <!-- TeamCity Integration (CI/CD Pipeline Support) -->
+        <teamcity outputFile="/home/ankur/biz-dir-test-results/results/production_teamcity.txt"/>
+    </logging>
+    
+    <!-- PHP Configuration for Optimal Testing -->
+    <php>
+        <!-- Error Reporting: Maximum visibility for testing -->
+        <ini name="error_reporting" value="E_ALL"/>
+        <ini name="display_errors" value="1"/>
+        <ini name="display_startup_errors" value="1"/>
+        <ini name="log_errors" value="1"/>
+        
+        <!-- Memory and Performance -->
+        <ini name="memory_limit" value="512M"/>
+        <ini name="max_execution_time" value="300"/>
+        
+        <!-- Security: Disable dangerous functions in testing -->
+        <ini name="disable_functions" value="exec,shell_exec,system,passthru"/>
+        
+        <!-- Session Security -->
+        <ini name="session.use_strict_mode" value="1"/>
+        <ini name="session.cookie_httponly" value="1"/>
+        <ini name="session.cookie_secure" value="1"/>
+        
+        <!-- Test Environment Constants -->
+        <const name="BIZ_DIR_TESTING_MODE" value="true"/>
+        <const name="WP_DEBUG" value="true"/>
+        <const name="WP_DEBUG_LOG" value="true"/>
+        <const name="WP_DEBUG_DISPLAY" value="false"/>
+        <const name="SCRIPT_DEBUG" value="true"/>
+        
+        <!-- Mock WordPress Constants -->
+        <const name="WP_TESTS_DOMAIN" value="test.local"/>
+        <const name="WP_TESTS_EMAIL" value="admin@test.local"/>
+        <const name="WP_TESTS_TITLE" value="BizDir Test Site"/>
+        <const name="WP_PHP_BINARY" value="php"/>
+        
+        <!-- Security: CSP and Security Headers -->
+        <const name="WP_TESTS_CSP_ENABLED" value="true"/>
+        <const name="FORCE_SSL_ADMIN" value="false"/>
+        
+        <!-- Performance: Disable external HTTP requests -->
+        <const name="WP_HTTP_BLOCK_EXTERNAL" value="true"/>
+        <const name="WP_ACCESSIBLE_HOSTS" value="localhost,test.local"/>
+        
+        <!-- Server Environment -->
+        <server name="SERVER_NAME" value="test.local"/>
+        <server name="REQUEST_METHOD" value="GET"/>
+        <server name="REQUEST_URI" value="/"/>
+        <server name="HTTP_HOST" value="test.local"/>
+        <server name="HTTPS" value="on"/>
+        
+        <!-- Environment Variables for Testing -->
+        <env name="WP_TESTS_KEEP_DB" value="0"/>
+        <env name="BIZ_DIR_TEST_MODE" value="regression"/>
+    </php>
+    
+    <!-- Test Execution Filters -->
+    <groups>
+        <exclude>
+            <group>external-http</group>
+            <group>ms-files</group>
+            <group>ms-required</group>
+            <group>large</group>
+        </exclude>
+    </groups>
+    
+    <!-- Industry Standard: Test Extensions and Listeners -->
+    <extensions>
+        <!-- Add PHPUnit extensions here if needed -->
+    </extensions>
+    
+    <!-- Performance: Test execution listeners -->
+    <listeners>
+        <!-- Add custom test listeners here if needed -->
+    </listeners>
+</phpunit>

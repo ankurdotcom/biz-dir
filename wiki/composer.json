@@ -1,0 +1,37 @@
+{
+    "name": "bizdir/wiki",
+    "description": "BizDir Project Wiki System with Executive Dashboard",
+    "version": "1.0.0",
+    "type": "project",
+    "require": {
+        "php": ">=8.0",
+        "slim/slim": "^4.10",
+        "twig/twig": "^3.4",
+        "illuminate/database": "^9.0",
+        "monolog/monolog": "^3.0",
+        "firebase/php-jwt": "^6.0",
+        "erusev/parsedown": "^1.7",
+        "guzzlehttp/guzzle": "^7.5",
+        "symfony/filesystem": "^6.0",
+        "league/commonmark": "^2.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "squizlabs/php_codesniffer": "^3.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "BizDir\\Wiki\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BizDir\\Wiki\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "setup": "php setup.php",
+        "test": "phpunit",
+        "serve": "php -S localhost:8080 -t public"
+    }
+}

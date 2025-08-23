@@ -1,0 +1,3852 @@
+[
+    {
+        "test_name": "testGoogleMapsIntegration",
+        "timestamp": "2025-08-23 00:08:46",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testYelpAPIIntegration",
+        "timestamp": "2025-08-23 00:08:46",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testGooglePlacesIntegration",
+        "timestamp": "2025-08-23 00:08:47",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testDataSynchronization",
+        "timestamp": "2025-08-23 00:08:47",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testStripePaymentIntegration",
+        "timestamp": "2025-08-23 00:08:47",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testSendGridEmailIntegration",
+        "timestamp": "2025-08-23 00:08:47",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testTwilioSMSIntegration",
+        "timestamp": "2025-08-23 00:08:47",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testInternalAPIEndpoints",
+        "timestamp": "2025-08-23 00:08:47",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testWebhookEndpoints",
+        "timestamp": "2025-08-23 00:08:47",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testBreadcrumbGeneration",
+        "timestamp": "2025-08-23 00:08:48",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testRobotsTxtGeneration",
+        "timestamp": "2025-08-23 00:08:48",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testURLStructureOptimization",
+        "timestamp": "2025-08-23 00:08:48",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testStructuredDataGeneration",
+        "timestamp": "2025-08-23 00:08:48",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testPageSpeedOptimization",
+        "timestamp": "2025-08-23 00:08:48",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testMetaTagGeneration",
+        "timestamp": "2025-08-23 00:08:48",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testCanonicalURLGeneration",
+        "timestamp": "2025-08-23 00:08:48",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testSitemapGeneration",
+        "timestamp": "2025-08-23 00:08:48",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testLocalSEOOptimization",
+        "timestamp": "2025-08-23 00:08:48",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testImageSEOOptimization",
+        "timestamp": "2025-08-23 00:08:49",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testPerformanceUnderLoad",
+        "timestamp": "2025-08-23 00:08:49",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testModeratorWorkflow",
+        "timestamp": "2025-08-23 00:08:49",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testCustomerJourneyWorkflow",
+        "timestamp": "2025-08-23 00:08:49",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testDataIntegrityAcrossWorkflows",
+        "timestamp": "2025-08-23 00:08:49",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testBusinessOwnerJourneyWorkflow",
+        "timestamp": "2025-08-23 00:08:49",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testAccessibilityComplianceWorkflow",
+        "timestamp": "2025-08-23 00:08:49",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testMobileResponsiveWorkflow",
+        "timestamp": "2025-08-23 00:08:49",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testBulkModerationOperations",
+        "timestamp": "2025-08-23 00:08:50",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testModeratorPermissions",
+        "timestamp": "2025-08-23 00:08:50",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testModerationAnalytics",
+        "timestamp": "2025-08-23 00:08:50",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testAutomatedModerationRules",
+        "timestamp": "2025-08-23 00:08:50",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testEscalationWorkflow",
+        "timestamp": "2025-08-23 00:08:50",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testModerationQueueManagement",
+        "timestamp": "2025-08-23 00:08:50",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testModerationWorkflow",
+        "timestamp": "2025-08-23 00:08:50",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testContentFlaggingSystem",
+        "timestamp": "2025-08-23 00:08:50",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_business_meta_query_performance",
+        "timestamp": "2025-08-23 00:08:50",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_user_business_relationship_query_performance",
+        "timestamp": "2025-08-23 00:08:50",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_review_aggregation_query_performance",
+        "timestamp": "2025-08-23 00:08:51",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_business_search_query_performance",
+        "timestamp": "2025-08-23 00:08:51",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_complex_business_listing_query_performance",
+        "timestamp": "2025-08-23 00:08:51",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_database_index_effectiveness",
+        "timestamp": "2025-08-23 00:08:51",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_category_filtering_query_performance",
+        "timestamp": "2025-08-23 00:08:51",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_analytics_aggregation_query_performance",
+        "timestamp": "2025-08-23 00:08:51",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_transaction_performance",
+        "timestamp": "2025-08-23 00:08:51",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_business_listing_query_performance",
+        "timestamp": "2025-08-23 00:08:51",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_business_listing_pagination_regression",
+        "timestamp": "2025-08-23 00:08:51",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_business_category_filtering_regression",
+        "timestamp": "2025-08-23 00:08:52",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_business_creation_regression",
+        "timestamp": "2025-08-23 00:08:52",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_business_deletion_regression",
+        "timestamp": "2025-08-23 00:08:52",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_business_search_comprehensive_regression",
+        "timestamp": "2025-08-23 00:08:52",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_business_update_regression",
+        "timestamp": "2025-08-23 00:08:52",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_business_search_regression",
+        "timestamp": "2025-08-23 00:08:52",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testDataSynchronization",
+        "timestamp": "2025-08-23 00:08:53",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testGoogleMapsIntegration",
+        "timestamp": "2025-08-23 00:08:53",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testGooglePlacesIntegration",
+        "timestamp": "2025-08-23 00:08:53",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testWebhookEndpoints",
+        "timestamp": "2025-08-23 00:08:53",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testTwilioSMSIntegration",
+        "timestamp": "2025-08-23 00:08:53",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testStripePaymentIntegration",
+        "timestamp": "2025-08-23 00:08:53",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testSendGridEmailIntegration",
+        "timestamp": "2025-08-23 00:08:53",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testInternalAPIEndpoints",
+        "timestamp": "2025-08-23 00:08:53",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testYelpAPIIntegration",
+        "timestamp": "2025-08-23 00:08:53",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_session_management_regression",
+        "timestamp": "2025-08-23 00:08:54",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_sql_injection_protection_regression",
+        "timestamp": "2025-08-23 00:08:54",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_user_authentication_regression",
+        "timestamp": "2025-08-23 00:08:54",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_xss_protection_regression",
+        "timestamp": "2025-08-23 00:08:54",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_password_security_regression",
+        "timestamp": "2025-08-23 00:08:54",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_user_enumeration_protection_regression",
+        "timestamp": "2025-08-23 00:08:54",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_csrf_protection_regression",
+        "timestamp": "2025-08-23 00:08:54",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_rate_limiting_regression",
+        "timestamp": "2025-08-23 00:08:54",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_permission_checks_regression",
+        "timestamp": "2025-08-23 00:08:54",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testAnalyticsAPI",
+        "timestamp": "2025-08-23 00:08:54",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testBusinessAnalytics",
+        "timestamp": "2025-08-23 00:08:55",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testPerformanceMonitoring",
+        "timestamp": "2025-08-23 00:08:55",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testDataAggregation",
+        "timestamp": "2025-08-23 00:08:55",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testUserAnalytics",
+        "timestamp": "2025-08-23 00:08:55",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testDataPrivacyCompliance",
+        "timestamp": "2025-08-23 00:08:55",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testAnalyticsReporting",
+        "timestamp": "2025-08-23 00:08:55",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testEventTracking",
+        "timestamp": "2025-08-23 00:08:55",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testRobotsTxtGeneration",
+        "timestamp": "2025-08-23 00:08:56",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testSitemapGeneration",
+        "timestamp": "2025-08-23 00:08:56",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testBreadcrumbGeneration",
+        "timestamp": "2025-08-23 00:08:56",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testCanonicalURLGeneration",
+        "timestamp": "2025-08-23 00:08:56",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testURLStructureOptimization",
+        "timestamp": "2025-08-23 00:08:56",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testMetaTagGeneration",
+        "timestamp": "2025-08-23 00:08:56",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testImageSEOOptimization",
+        "timestamp": "2025-08-23 00:08:56",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testPageSpeedOptimization",
+        "timestamp": "2025-08-23 00:08:56",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testLocalSEOOptimization",
+        "timestamp": "2025-08-23 00:08:57",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testStructuredDataGeneration",
+        "timestamp": "2025-08-23 00:08:57",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testBusinessOwnerJourneyWorkflow",
+        "timestamp": "2025-08-23 00:08:57",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testDataIntegrityAcrossWorkflows",
+        "timestamp": "2025-08-23 00:08:57",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testPerformanceUnderLoad",
+        "timestamp": "2025-08-23 00:08:57",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testModeratorWorkflow",
+        "timestamp": "2025-08-23 00:08:57",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testAccessibilityComplianceWorkflow",
+        "timestamp": "2025-08-23 00:08:57",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testMobileResponsiveWorkflow",
+        "timestamp": "2025-08-23 00:08:58",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testCustomerJourneyWorkflow",
+        "timestamp": "2025-08-23 00:08:58",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testModeratorPermissions",
+        "timestamp": "2025-08-23 00:08:58",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testModerationWorkflow",
+        "timestamp": "2025-08-23 00:08:58",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testEscalationWorkflow",
+        "timestamp": "2025-08-23 00:08:58",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testModerationQueueManagement",
+        "timestamp": "2025-08-23 00:08:58",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testBulkModerationOperations",
+        "timestamp": "2025-08-23 00:08:59",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testModerationAnalytics",
+        "timestamp": "2025-08-23 00:08:59",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testAutomatedModerationRules",
+        "timestamp": "2025-08-23 00:08:59",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "testContentFlaggingSystem",
+        "timestamp": "2025-08-23 00:08:59",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_business_meta_query_performance",
+        "timestamp": "2025-08-23 00:08:59",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_database_index_effectiveness",
+        "timestamp": "2025-08-23 00:08:59",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_user_business_relationship_query_performance",
+        "timestamp": "2025-08-23 00:08:59",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_transaction_performance",
+        "timestamp": "2025-08-23 00:09:00",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_review_aggregation_query_performance",
+        "timestamp": "2025-08-23 00:09:00",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_category_filtering_query_performance",
+        "timestamp": "2025-08-23 00:09:00",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_analytics_aggregation_query_performance",
+        "timestamp": "2025-08-23 00:09:00",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    },
+    {
+        "test_name": "test_business_search_query_performance",
+        "timestamp": "2025-08-23 00:09:00",
+        "environment_snapshot": {
+            "database": {
+                "tables": [
+                    "column1",
+                    "column2",
+                    "column3"
+                ],
+                "options_count": 0,
+                "posts_count": 0,
+                "users_count": 0
+            },
+            "wordpress": {
+                "active_plugins": [],
+                "current_theme": false,
+                "wp_version": "6.3.0",
+                "php_version": "8.3.6"
+            },
+            "system": {
+                "memory_limit": "512M",
+                "max_execution_time": "300",
+                "error_reporting": 32767
+            },
+            "bizdir": {
+                "businesses_count": 0,
+                "users_count": 0,
+                "reviews_count": 0,
+                "analytics_records": 0
+            }
+        },
+        "assertions_count": 0,
+        "test_status": "passed"
+    }
+]

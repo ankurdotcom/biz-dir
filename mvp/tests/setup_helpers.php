@@ -50,6 +50,7 @@ class Setup_Helper {
                 'success' => false,
                 'error' => 'Required tables do not exist'
             ];
+        }
         
         $result = $wpdb->insert(
             $wpdb->prefix . 'biz_towns',

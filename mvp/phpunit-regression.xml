@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+         bootstrap="tests/bootstrap.php"
+         colors="true"
+         verbose="true"
+         stopOnFailure="false"
+         processIsolation="false"
+         convertDeprecationsToExceptions="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true">
+    
+    <testsuites>
+        <!-- Regression Test Suites -->
+        <testsuite name="RegressionTests">
+            <directory>tests/Regression/</directory>
+        </testsuite>
+        
+        <!-- Core Business Logic Tests -->
+        <testsuite name="BusinessLogic">
+            <directory>tests/Business/</directory>
+        </testsuite>
+        
+        <!-- User Management Tests -->
+        <testsuite name="UserManagement">
+            <directory>tests/User/</directory>
+        </testsuite>
+        
+        <!-- Analytics and Reporting Tests -->
+        <testsuite name="Analytics">
+            <directory>tests/Analytics/</directory>
+        </testsuite>
+        
+        <!-- Monetization Tests -->
+        <testsuite name="Monetization">
+            <directory>tests/Monetization/</directory>
+        </testsuite>
+        
+        <!-- SEO Tests -->
+        <testsuite name="SEO">
+            <directory>tests/SEO/</directory>
+        </testsuite>
+        
+        <!-- Moderation Tests -->
+        <testsuite name="Moderation">
+            <directory>tests/Moderation/</directory>
+        </testsuite>
+        
+        <!-- Performance Tests -->
+        <testsuite name="Performance">
+            <directory>tests/Performance/</directory>
+        </testsuite>
+        
+        <!-- Security Tests -->
+        <testsuite name="Security">
+            <directory>tests/Security/</directory>
+        </testsuite>
+        
+        <!-- Integration Tests -->
+        <testsuite name="Integration">
+            <directory>tests/Integration/</directory>
+        </testsuite>
+        
+        <!-- End-to-End Tests -->
+        <testsuite name="EndToEnd">
+            <directory>tests/E2E/</directory>
+        </testsuite>
+    </testsuites>
+    
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">wp-content/plugins/biz-dir-core/includes/</directory>
+        </include>
+        <exclude>
+            <directory>tests/</directory>
+            <directory>vendor/</directory>
+            <directory>wp-content/plugins/biz-dir-core/includes/vendor/</directory>
+        </exclude>
+        <report>
+            <clover outputFile="/home/ankur/biz-dir-test-results/coverage/regression_clover.xml"/>
+            <html outputDirectory="/home/ankur/biz-dir-test-results/coverage/regression"/>
+            <text outputFile="/home/ankur/biz-dir-test-results/coverage/regression_coverage.txt"/>
+        </report>
+    </coverage>
+    
+    <logging>
+        <junit outputFile="/home/ankur/biz-dir-test-results/results/junit_regression.xml"/>
+        <testdoxHtml outputFile="/home/ankur/biz-dir-test-results/results/regression_testdox.html"/>
+        <testdoxText outputFile="/home/ankur/biz-dir-test-results/results/regression_testdox.txt"/>
+    </logging>
+    
+    <php>
+        <!-- Test Environment Configuration -->
+        <env name="WP_TESTS_DOMAIN" value="bizdir-test.local"/>
+        <env name="WP_TESTS_EMAIL" value="admin@bizdir-test.local"/>
+        <env name="WP_TESTS_TITLE" value="BizDir Test Site"/>
+        <env name="WP_DEBUG" value="true"/>
+        <env name="WP_DEBUG_LOG" value="true"/>
+        
+        <!-- Database Configuration -->
+        <env name="DB_NAME" value="biz_dir_test"/>
+        <env name="DB_USER" value="test_user"/>
+        <env name="DB_PASSWORD" value="test_pass"/>
+        <env name="DB_HOST" value="localhost"/>
+        
+        <!-- Test-specific Settings -->
+        <env name="DISABLE_WP_CRON" value="true"/>
+        <env name="WP_MEMORY_LIMIT" value="-1"/>
+        <env name="WP_MAX_MEMORY_LIMIT" value="-1"/>
+        
+        <!-- Regression Test Settings -->
+        <env name="REGRESSION_TEST_MODE" value="true"/>
+        <env name="REGRESSION_DATA_DIR" value="tests/fixtures/regression"/>
+        <env name="PERFORMANCE_THRESHOLD_MS" value="2000"/>
+        <env name="MEMORY_THRESHOLD_MB" value="256"/>
+    </php>
+</phpunit>
